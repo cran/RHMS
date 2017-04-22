@@ -4,24 +4,24 @@
 adds an object to basin
 }
 \description{
-this functions adds an object inherited from other classes that are able to construct a features of hydrologic system
+adds an object inherited from a hydrologic feature to a basin instantiated from class of \emph{createBasin}.
 }
 \usage{
 addObjectToBasin(object, basin, type)
 }
 \arguments{
   \item{object}{
-an object to be added to a basin
+an object to be added to the basin
 }
   \item{basin}{
-an object inherited from class of createBasin
+an object inherited from class of \emph{createBasin}
 }
   \item{type}{
-the type of object to be added to a basin: "reservoir","reach","subbasin","junction"
+the type of object to be added to a basin: \emph{'reservoir'},\emph{'reach'},\emph{'subbasin'},\emph{'junction'}
 }
 }
 \value{
-an object from class of createBasin
+an object from class of \emph{createBasin}
 }
 \seealso{ \code{\link[RHMS]{sim}} }
 \examples{

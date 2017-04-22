@@ -1,17 +1,17 @@
 \name{createBasin.base}
 \alias{createBasin.base}
 \title{
-creates a basin
+base function of class of \emph{createBasin}
 }
 \description{
-this function builds a basin for a desired simulation time period and interval
+instantiates an object from class of \emph{createBasin}
 }
 \usage{
 \method{createBasin}{base}(name, simPeriod, interval)
 }
 \arguments{
   \item{name}{
-a string, presenting the name of basin
+a string: a name for the basin
 }
   \item{simPeriod}{
 the simulation period in seconds
@@ -21,7 +21,7 @@ number of simulation time steps
 }
 }
 \value{
-a list: an object from class of creatBasin
+a list: an object from class of \emph{creatBasin}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

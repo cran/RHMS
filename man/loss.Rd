@@ -1,21 +1,21 @@
 \name{loss}
 \alias{loss}
 \title{
-Base for computation of rainfall loss
+Excess rainfall computation
 }
 \description{
-this function provides parametric methods (e.g. 'horton' and 'SCS') to compute loss and direct runoff depth
+this function provides parametric methods (e.g. \emph{'horton'} and \emph{'SCS'}) to compute loss and direct runoff depth
 }
 \usage{
 loss(precipitation,lossParams=list(f0,f1,k,CN),
 simulation=c(interval=3600,period=NA),lossMethod)
 }
 \arguments{
-  \item{precipitation}{a vector of precipitation time series}
-  \item{lossParams}{a list: list of parameters associated to the selcted type of 'transformMethod':
-  'CN' for 'SCS' and 'f0', 'f1', 'k' for 'horton'}
-  \item{simulation}{a vector of simulation interval (in second) and time step (an integer)}
-  \item{lossMethod}{a string denoting the type of lossMethod: 'SCS' and 'horton'}
+  \item{precipitation}{a vector of precipitation time series(mm)}
+  \item{lossParams}{a list: list of parameters associated to the selcted type of \emph{'lossMethod'}:
+  \emph{'CN'} for \emph{'SCS'} and \emph{'f0'}, \emph{'f1'}, \emph{'k'} for \emph{'horton'}}
+  \item{simulation}{a vector of simulation interval (in second) and time steps (an integer)}
+  \item{lossMethod}{a string including the type of lossMethod: \emph{'SCS'} and \emph{'horton'}}
 }
 \value{
 a dataframe: including precipitation, loss, and exess rainfall depth

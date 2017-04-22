@@ -1,15 +1,15 @@
 \name{createSubbasin.base}
 \alias{createSubbasin.base}
 \title{
-creates a sub-basin object
+base function for class of \emph{createSubbasin}
 }
 \description{
-creates a sub-basin object simulated by methods proposed by NRCS, supporting direct inflow
+instantiates an object from class of \emph{createSubbasin}
 }
 \usage{
 \method{createSubbasin}{base}(name,precipitation,
 inflow,Area,delayInflow,label,downstream,
-transformMethod,lossMethod,
+transformMethod,lossMethod,UH,
 transformParams,lossParams)
 }
 \arguments{
@@ -26,31 +26,36 @@ a vector (optional): a time series of direct inflow rather than flows comming fr
 the area of drainage basin (Km^2)
 }
   \item{delayInflow}{
-an integer: presenting the time steps ro delay direct inflow time series
+an integer (optional): presenting the time steps to delay direct inflow time series
 }
   \item{label}{
-an integer: a unique number known as code label
+an integer: a unique number, as label
 }
   \item{downstream}{
-an integer: the downstream object code
+an integer: the code of downstream object 
 }
   \item{transformMethod}{
-a string: the type of transformation method. Available types: "SCS" and "snyder"
+a string: the type of transformation method. Available types: \emph{'SCS'}, \emph{snyder'}, and \emph{'user'} for user defined unit hydrograph
 }
   \item{lossMethod}{
-a string: the type of loss method. Available types: "SCS" and "horton"
+a string: the type of loss method. Available types: \emph{'SCS'} and \emph{'horton'}
+}
+  \item{UH}{
+a data.frame: including the ordinates of user UH. the HU first collumn indicates time (Hr) and second collumn include flow rates (cms) 
 }
   \item{transformParams}{
-a list: list of parameters associated to the selcted type of 'transformMethod': 'Tlag' for 'SCS'
-and 'Ct', 'Cp', 'L', and 'Lc' other for 'snyder'
+a list: list of parameters associated to the selcted type of \emph{'transformMethod'}:
+\emph{'Tlag'} for \emph{'SCS'}
+and \emph{'Ct'}, \emph{'Cp'}, \emph{'L'}, and \emph{'Lc'} other for \emph{'snyder'}
 }
   \item{lossParams}{
-a list: list of parameters associated to the selcted type of 'transformMethod': 'CN' for 'SCS'
-and 'f0', 'f1', 'k' other for 'horton'
+a list: list of parameters associated to the selcted type of \emph{'lossMethod'}:
+\emph{'CN'} for \emph{'SCS'}
+and \emph{'f0'}, \emph{'f1'}, \emph{'k'} other for \emph{'horton'}
 }
 }
 \value{
-a list: an object from class of list instantiated by createSubbasin
+a list: an object from class of \emph{createSubbasin}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

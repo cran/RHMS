@@ -1,10 +1,10 @@
 \name{createReach.base}
 \alias{createReach.base}
 \title{
-creates a reach object
+base function for class of \emph{createReach}
 }
 \description{
-creates a reach object, supporting direct inflow
+instantiates an object from class of \emph{createReach}
 }
 \usage{
 \method{createReach}{base}(name,routingMethod,inflow,
@@ -16,27 +16,27 @@ creates a reach object, supporting direct inflow
 a string: the name of reach to be instantiated
 }
   \item{routingMethod}{
-a string: the method of channel routing. available types: 'muskingum', and 'muskingumcunge'
+a string: the method of channel routing. available types: \emph{'muskingum'}, and \emph{'muskingumcunge'}
 }
   \item{inflow}{
-a vector (optional): a time series of direct inflow rather than flows comming from upstream
+a vector (optional): a time series of direct inflow rather than flows comming from upstream (cms)
 }
   \item{routingParams}{
-a list : parameters associated to the 'routingMethod': 'k' and 'x' for 'muskingum', 'bedWith' (m),
-'sideSlope' (m/m), channelSlope (m/m), manningRoughness, riverLength (Km) for 'muskingumcunge'
+a list : parameters associated to the \emph{routingMethod}: \emph{'k'} and \emph{'x'} for \emph{'muskingum'}, \emph{'bedWith'} (m),
+\emph{'sideSlope'} (m/m), \emph{'channelSlope'} (m/m), \emph{'manningRoughness'}, \emph{'riverLength'} (Km) for \emph{'muskingumcunge'}
 }
   \item{delayInflow}{
-an integer: presenting the time steps ro delay direct inflow time series
+an integer (optional): presenting the time steps to delay direct inflow time series
 }
   \item{label}{
-an integer: a unique number known as code label
+an integer: a unique number, as label
 }
   \item{downstream}{
-an integer: the downstream object code
+an integer: the code of downstream object 
 }
 }
 \value{
-a list: an object from class of list instantiated by createReach
+a list: an object from class of list instantiated by \emph{createReach}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

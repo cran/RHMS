@@ -13,17 +13,16 @@ transform(rainfall,
                                Ct  =NULL,
                                L   =NULL,
                                Lc  =NULL),
-          Area,simulation=c(interval=3600*1,period=NA),
+          Area,simulation=c(interval=3600*1,period=NA),UH,
           transformMethod)
 }
 \arguments{
-  \item{rainfall}{an object inherited from class of loss}
-  \item{transformParams}{a list: list of parameters associated to the selcted type of 'transformMethod':
- 'Tlag' for 'SCS' and other for 'snyder'}
+  \item{rainfall}{an object inherited from \emph{loss} function}
+  \item{transformParams}{a list: list of parameters associated to the selcted type of \emph{transformMethod}:\emph{'Tlag'} for \emph{'SCS'} and \emph{'Ct'}, \emph{'Cp'}, \emph{'L'}, and \emph{'Lc'} other for \emph{'snyder'}}
   \item{Area}{the area of drainage basin (Km^2)}
-  \item{simulation}{a vector of simulation interval (in second) and time step (an integer)}
-  \item{transformMethod}{a string: the type of transformation method.
-Available types: "SCS" and "snyder"}
+  \item{simulation}{a vector of simulation interval (in second) and time steps (an integer)}
+  \item{UH}{a data.frame: must be provided when \emph{'transformMethod'} is set to \emph{'user'}. \emph{'UH'} is the ordinates of a user defined UH by the which its first collumn is time (Hr) and the second collumn includes flow rates (cms)}
+  \item{transformMethod}{a string: the type of transformation method. available types: \emph{'SCS'}, \emph{'snyder'}, and \emph{'user'}}
 }
 \value{
 Hydrogaph of direct runoff
@@ -34,22 +33,31 @@ Hydrogaph of direct runoff
 Area=200
 lossMethod<-"SCS"
 lossParams<-list(CN=65)
-transformMethod<-c("snyder","SCS")
+transformMethod<-c("snyder","SCS","user")
 simulation<-c(interval=3600,period=100)
 precipitation<-sin(seq(0.1,pi-0.1,length.out=10))*20
 transformParams=list(Tlag=4,Cp=0.15,Ct=2,L=100,Lc=15)
+UH<-data.frame(t=1:20,q=sin(seq(0,pi,length.out=20))*1)
 
 SCS_loss<-loss(precipitation,lossParams,simulation,lossMethod)
+
 snyder_transformation<-transform(rainfall=SCS_loss,
                                  transformParams,
                                  Area,
                                  simulation,
-                                 transformMethod[1])
+                                 transformMethod=transformMethod[1])
 SCS_transformation<-transform(rainfall=SCS_loss,
                                  transformParams,
                                  Area,
                                  simulation,
-                                 transformMethod[2])
+                                 transformMethod=transformMethod[2])
+user_transformation<-transform(rainfall=SCS_loss,
+                                 transformParams,
+                                 Area,
+                                 simulation,
+                                 UH,
+                                 transformMethod=transformMethod[3])
+
 }
 \author{
 Rezgar Arabzadeh

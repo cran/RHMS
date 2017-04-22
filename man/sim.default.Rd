@@ -1,17 +1,17 @@
 \name{sim.default}
 \alias{sim.default}
 \title{
-HMS default function
+default function for class of \emph{sim}
 }
 \description{
-RHMS package default simulation function for sim class
+simulates an object inherited form class of \emph{createBasin}
 }
 \usage{
 \method{sim}{default}(object)
 }
 \arguments{
   \item{object}{
-an object from class of createBasin
+an object from class of \emph{createBasin}
 }
 }
 \author{

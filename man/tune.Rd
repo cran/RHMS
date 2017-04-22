@@ -4,7 +4,7 @@
 tunning an RHMS model
 }
 \description{
-a function for tunning an RHMS model based on a set of observed time series and using 'pso' algorithm
+a function for tunning an RHMS model based on a set of observed time series, using \emph{'particle swarm optimization'}
 }
 \usage{
 tune(object, observationTS, labelTS, delay=0,tuneLabels,maxiter,
@@ -19,37 +19,36 @@ tune(object, observationTS, labelTS, delay=0,tuneLabels,maxiter,
 }
 \arguments{
   \item{object}{
-an object from class of createBasin
+an object from class of \emph{createBasin}
 }
   \item{observationTS}{
 a vector: an observed time series (cms)
 }
   \item{labelTS}{
-an integer: label code number of the object that associated to observationTS 
+an integer: label of the object associated to the \emph{'observationTS'}
 }
   \item{delay}{
 an integer: presenting the number of time steps to delay direct inflow time series
 }
   \item{tuneLabels}{
-a vector of integers: presenting the code label(s) of element to be tunned
+a vector of integers: the label(s) of element(s) to be tunned
 }
   \item{maxiter}{
-an integer: maximum iteration of genetics algorithm
+an integer: maximum number of iterations
 }
   \item{transformBandWith}{
-an list: a list of vector(s), including upper and lower parameters of tansformation methods. Each parameter search domain is set as a two-value vector, whose first element includes lower limit and second elemnt is upper limit.
-Ct=[1, 2.5] and Cp=[0.1, 0.3] is parameters for Snyder Unit Hydrograph (SUH), cn=[25, 85] curve number for SCS loss method,  and k for horton loss method.
+an list: a list of vector(s), including upper and lower limit of parameters of tansformation methods. Each parameter search domain is set as a two-value vector, whose first element includes lower limit and second elemnt is upper limit.
+\emph{Ct=[1, 2.5]} and \emph{Cp=[0.1, 0.3]} are parameters for \emph{Snyder Unit Hydrograph (SUH)}, \emph{cn=[25, 85]} curve number for \emph{SCS} loss method,  and \emph{'k'} for \emph{horton} loss method.
 }
   \item{routingBandWith}{
-an list: a list of vector(s), including upper and lower parameters of routing methods. Each parameter search domain is set as a two-value vector, whose first element includes lower limit and second elemnt is upper limit.
-manning=[0.0001, 0.1] is a parameter used muskingum cunge method, and x = [0.2, 0.6] and k=[1, 5] belong to muskingum channel routing method.
+an list: a list of vector(s), including upper and lower limit of parameters of routing methods. Each parameter search domain is set as a two-value vector, whose first element includes lower limit and second elemnt is upper limit.
+\emph{manning=[0.0001, 0.1]} is a parameter used \emph{muskingum cunge} method, and \emph{x = [0.2, 0.6]} and \emph{k=[1, 5]} belong to \emph{muskingum} channel routing method.
 }
   \item{update}{
-logical: If FALSE, the optimized parameter(s) are returned,If TRUE the calibrated object is returned}
+logical: If FALSE, the optimized parameter(s) are returned,If TRUE, the calibrated object frpm class of \emph{createBasin} is returned}
 }
-
 \value{
-a vector of tunned parameters
+a vector of tunned parameters or an object from class of \emph{createBasin}
 }
 \references{
 Kennedy, J. (1997). "The particle swarm: social adaptation of knowledge". Proceedings of IEEE International Conference on Evolutionary Computation. pp. 303-308

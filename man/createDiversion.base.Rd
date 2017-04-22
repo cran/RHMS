@@ -1,10 +1,10 @@
 \name{createDiversion.base}
 \alias{createDiversion.base}
 \title{
-creates a diversion object
+base function of class of \emph{createDiversion}
 }
 \description{
-creates a diversion object
+instantiates an object from class of \emph{createDiversion}
 }
 \usage{
 \method{createDiversion}{base}(name,label,downstream,divertTo,capacity)
@@ -14,20 +14,20 @@ creates a diversion object
 a string: the name of diversion to be instantiated
 }
   \item{downstream}{
-an integer: the downstream object code
+an integer: the code of downstream object 
 }
   \item{label}{
-an integer: a unique number known as code label
+an integer: a unique number, as label
 }
   \item{divertTo}{
-an integer: the object lable code the flow to be diverted to
+an integer: the code of an object at the diversion outlet
 }
   \item{capacity}{
-diversion capacity flow rate (cms)
+diversion capacity (cms)
 }
 }
 \value{
-a list: an object from class of list instantiated by createDiversion
+a list: an object from class of list instantiated by \emph{createDiversion}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

@@ -1,10 +1,16 @@
 createSubbasin.default <-
-function(name="Unttitled",precipitation,inflow=NA,Area,delayInflow=1,label,downstream=NA,transformMethod="SCS",lossMethod="SCS",transformParams=list(Tlag=NULL,Cp=NULL,Ct=NULL,L=NULL,Lc=NULL),lossParams=list(CN=NULL,f0=NULL,f1=NULL,k=NULL))
+function(name="Unttitled",precipitation,inflow=NA,Area,delayInflow=1,label,downstream=NA,transformMethod="SCS",lossMethod="SCS",UH=NA,transformParams=list(Tlag=NULL,Cp=NULL,Ct=NULL,L=NULL,Lc=NULL),lossParams=list(CN=NULL,f0=NULL,f1=NULL,k=NULL))
 {
    if(missing(label)){stop("label code is not specified!")}
    if(missing(precipitation)){stop("Precipitation is not specified!")}
    if(missing(Area)){stop("Area is not specified!")}
    if(missing(transformParams)){stop("transform parameters is not specified!")}
+   if(transformMethod=="user")
+   {
+      if(is.na(UH)){stop("missing user defined unit hydrograph!")} 
+      if(ncol(UH)!=2){stop("UH must be a 2-collumn data.frame!")}
+   }
+
    if(transformMethod=="SCS")
    {
       if(is.null(transformParams$Tlag))
@@ -35,7 +41,7 @@ function(name="Unttitled",precipitation,inflow=NA,Area,delayInflow=1,label,downs
    }
 
    resault<-list()
-   operation<-createSubbasin.base(name,precipitation,inflow,Area,delayInflow,label,downstream,transformMethod,lossMethod,transformParams,lossParams)
+   operation<-createSubbasin.base(name,precipitation,inflow,Area,delayInflow,label,downstream,transformMethod,lossMethod,UH,transformParams,lossParams)
    resault$operation<-operation
    resault$call<-match.call()
    class(resault)<-'createSubbasin'

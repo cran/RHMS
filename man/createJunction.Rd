@@ -4,7 +4,7 @@
 creates a junction object
 }
 \description{
-creates a junction object, supporting direct inflow
+instantiates an object from class of \emph{createJunction}
 }
 \usage{
 createJunction(name, downstream,label, 
@@ -18,17 +18,17 @@ a string: the name of junction to be instantiated
 an integer: the downstream object code
 }
   \item{label}{
-an integer: a unique number known as code label
+an integer: a unique number, as label
 }
   \item{inflow}{
 a vector (optional): a time series of direct inflow rather than flows comming from upstream (cms)
 }
   \item{delayInflow}{
-an integer: presenting the time steps ro delay direct inflow time series
+an integer (optional): presenting the time steps to delay direct inflow time series
 }
 }
 \value{
-a list: an object from class of list instantiated by createJunction
+a list: an object from class \emph{createJunction}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

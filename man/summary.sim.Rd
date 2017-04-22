@@ -1,18 +1,18 @@
 \name{summary.sim}
 \alias{summary.sim}
 \title{
-summary function for RHMS package
+summary method for RHMS objects
 }
 \description{
-summary function for objects inherited from class of sim
+summary method for objects inherited from class of \emph{sim}
 }
 \usage{
 \method{summary}{sim}(object,...)
 
 }
 \arguments{
-  \item{object}{an object from class of sim}
-  \item{...}{other objects that can be passed to plot function}
+  \item{object}{an object from class of \emph{sim}}
+  \item{...}{other objects that can be passed to summary function}
 }
 \value{
 a matrix: including inflow and outflow volumes and peaks rates respectively

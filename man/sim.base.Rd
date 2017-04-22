@@ -1,17 +1,17 @@
 \name{sim.base}
 \alias{sim.base}
 \title{
-RHMS core function
+base function for class of \emph{sim}
 }
 \description{
-HMS package core simulation function for sim class
+simulates an object inherited form class of \emph{createBasin}
 }
 \usage{
 \method{sim}{base}(object)
 }
 \arguments{
   \item{object}{
-an object from class of createBasin
+an object from class of \emph{createBasin}
 }
 }
 \author{

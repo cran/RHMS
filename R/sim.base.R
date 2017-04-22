@@ -186,15 +186,16 @@ function(object)
           {
             if(currentCode==object$subbasins[[l]]$label)
             {
-              inflow<-apply(object$subbasins[[l]]$inflow,1,sum,na.rm=TRUE)
-              precipitation<-object$subbasins[[l]]$precipitation
-              Area<-object$subbasins[[l]]$Area
+              inflow         <-apply(object$subbasins[[l]]$inflow,1,sum,na.rm=TRUE)
+              precipitation  <-object$subbasins[[l]]$precipitation
+              Area           <-object$subbasins[[l]]$Area
               transformMethod<-object$subbasins[[l]]$transformMethod
               lossMethod     <-object$subbasins[[l]]$lossMethod
+              UH             <-object$subbasins[[l]]$UH
               transformParams<-object$subbasins[[l]]$transformParams
-              lossParams<-object$subbasins[[l]]$lossParams
-              rainfall<-loss(precipitation,lossParams,simulation=c(interval=object$interval,period=object$simPeriod),lossMethod)
-              resault<-transform (rainfall,transformParams,Area,simulation=c(interval=object$interval,period=object$simPeriod),transformMethod)
+              lossParams     <-object$subbasins[[l]]$lossParams
+              rainfall       <-loss(precipitation,lossParams,simulation=c(interval=object$interval,period=object$simPeriod),lossMethod)
+              resault<-transform (rainfall,transformParams,Area,simulation=c(interval=object$interval,period=object$simPeriod),UH,transformMethod)
               object$subbasins[[l]]$simResault<-resault
               outflow<-resault[,4]+inflow
               object$subbasins[[l]]$outflow<-outflow

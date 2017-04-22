@@ -1,10 +1,10 @@
 \name{reachRouting}
 \alias{reachRouting}
 \title{
-channel routing
+channel routing computation
 }
 \description{
-base function for routing channel floods using 
+base function for routing floods using 
 parameteric Muskingum and muskingum-cunge techniques.
 }
 \usage{
@@ -20,16 +20,15 @@ reachRouting(inflow,routingMethod="muskingum",
 }
 \arguments{
   \item{inflow}{
-a vector : a time series of direct inflow to be routed (cms)
+a vector : direct inflow time series (cms)
 }
   \item{routingMethod}{
-a string: the type of channel routing method: "muskingum" or "muskingumcunge"
+a string: the type of channel routing method: \emph{'muskingum'} or \emph{'muskingumcunge'}
 }
-
   \item{routingParams}{
-a list : parameters associated to the 'routingMethod': 'k' and 'x' for 'muskingum', 
-'bedWith' (m), 'sideSlope' (m/m), 'channelSlope' (m/m), 
- 'manningRoughness', 'riverLength' (Km) for 'muskingumcunge'
+a list : parameters associated to the \emph{routingMethod}: \emph{'k'} and \emph{'x'} for \emph{'muskingum'}, 
+\emph{'bedWith'} (m), \emph{'sideSlope'} (m/m), \emph{'channelSlope'} (m/m), 
+ \emph{'manningRoughness'}, \emph{'riverLength'} (Km) for \emph{'muskingumcunge'}
 }
   \item{simulation}{
 a vectors: number of simulation time steps and the simulation period in seconds.

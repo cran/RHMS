@@ -4,7 +4,7 @@
 reservoir routing
 }
 \description{
-base function for routing reservoir floods using classical Muskingum technique
+base function for routing reservoir flood using classical Muskingum technique
 }
 \usage{
 reservoirRouting(inflow, ratingCurve, dischargeCurve,
@@ -16,10 +16,10 @@ reservoirRouting(inflow, ratingCurve, dischargeCurve,
 a vector : a time series of direct inflow to be routed (cms)
 }
   \item{ratingCurve}{
-a data frame: a data frame at which its first collumn includes height (masl) and second collums presents equivalant volume to the height at first collumn (MCM)
+a data frame: a data frame at which its first collumn includes height (masl) and second collums presents volume corresponding to the height at first collumn (MCM)
 }
   \item{dischargeCurve}{
-a data frame: a data frame at which its first collumn includes height (masl) and second collums presents equivalant discharge rate to the height at first collumn (cms)
+a data frame: a data frame at which its first collumn includes height (masl) and second collums presents discharge rate corresponding to the height at first collumn (cms)
 }
   \item{initialStorage}{
 the initial storage of reservoir at the first time step of simulation (MCM)
@@ -28,11 +28,11 @@ the initial storage of reservoir at the first time step of simulation (MCM)
 the maximum volume of reservoir capacity (MCM)
 }
   \item{simulation}{
-a vectors: number of simulation time steps and the simulation period noted in seconds and a multiple of 3600s
+a vectors: number of simulation time steps and the simulation period (seconds)
 }
 }
 \value{
-a list: including inflow time series routing resaults and simulation details 
+a data.frame:  including inflow time series and routing resaults
 }
 \references{
 Chow, V. T., Maidment, D. R., & Mays, L. W. (1988). Applied hydrology.

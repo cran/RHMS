@@ -1,5 +1,5 @@
 transform <-
-function(rainfall,transformParams=list(Tlag=NULL,Cp=NULL,Ct=NULL,L=NULL,Lc=NULL),Area,simulation=c(interval=3600*1,period=NA),transformMethod)
+function(rainfall,transformParams=list(Tlag=NULL,Cp=NULL,Ct=NULL,L=NULL,Lc=NULL),Area,simulation=c(interval=3600*1,period=NA),UH,transformMethod)
 {
    exRainfall<-rainfall[,3]
    if(is.na(simulation[2])){simulation[2]<-length(exRainfall)}
@@ -54,6 +54,61 @@ function(rainfall,transformParams=list(Tlag=NULL,Cp=NULL,Ct=NULL,L=NULL,Lc=NULL)
       resault<-cbind(Rainfall,Losses,exRainfall,Hydrograph)
       return(resault)
    }
+
+   if(transformMethod=="user")
+   {
+      userUH_Ordinates<-UH
+      t<-userUH_Ordinates[,1]
+      q<-userUH_Ordinates[,2]
+      smoothed <- loess(q~t)
+      t <- seq(0,max(t), simulation[1]/3600)
+      q<-predict(smoothed,t)
+      q[which(q<0)]<-0
+      q[which(is.na(q))]<-0
+      user_UH<-data.frame(t,q)
+      if(simulation[2]>nrow(user_UH))
+      {
+         extra<-simulation[2]-nrow(user_UH)
+         user_UH<-rbind(user_UH,data.frame(t=((nrow(user_UH)+1):simulation[2])*simulation[1]/3600,q=rep(0,extra)))
+      }
+      if(simulation[2]<nrow(user_UH))
+      {
+         less<-nrow(user_UH)-simulation[2]
+         user_UH<-user_UH[1:(nrow(user_UH)-less),]
+      }
+
+      Hydrograph<-rep(NA,nrow(user_UH))
+      exRainfall<-c(exRainfall,rep(0,length(Hydrograph)-length(exRainfall)))
+      Rainfall<-c(rainfall[,1],rep(0,length(Hydrograph)-length(rainfall[,1])))
+      Losses<-Rainfall-exRainfall
+      q<-0
+      for(i in 1:nrow(user_UH))
+      {
+         for(j in 1:i)
+         {
+            q<-q+user_UH[j,2]*exRainfall[i-j+1]
+         }
+         Hydrograph[i]<-q
+         q<-0
+      }
+      (exRainfallVolume<-sum(exRainfall)/1000*Area)
+      (HydrographVolume<-sum(Hydrograph*simulation[1])/1000000)
+      if(exRainfallVolume<HydrographVolume)
+      {
+         dif<-HydrographVolume-exRainfallVolume
+         Hydrograph<-Hydrograph-Hydrograph/sum(Hydrograph)*dif*1000/3.6
+      }
+      if(exRainfallVolume>HydrographVolume)
+      {
+         dif<-exRainfallVolume-HydrographVolume
+         Hydrograph<-Hydrograph+Hydrograph/sum(Hydrograph)*dif*1000/3.6
+      }
+
+      Hydrograph[which(Hydrograph<0)]<-0
+      resault<-cbind(Rainfall,Losses,exRainfall,Hydrograph)
+      return(resault)
+   }
+
 
    if(transformMethod=="snyder")
    {
