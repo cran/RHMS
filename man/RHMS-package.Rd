@@ -12,47 +12,53 @@ The RHMS package provides tools to R users for simulation of hydrologic events. 
 \tabular{ll}{
 Package: \tab RHMS\cr
 Type: \tab Package\cr
-Version: \tab 1.1\cr
+Version: \tab 1.2\cr
 Date: \tab 2017-03-28\cr
 License: \tab GPL-3\cr
 }
 the package include three major types of functions as follows:
 
-   1- functions for construction and manipulatation of hydrologic features.
 
-      a) \emph{createBasin}.          constructor for basin
 
-      b) \emph{createJunction}.       constructor for junction
+1- functions for construction and manipulatation of hydrologic features.
 
-      c) \emph{createReach}.          constructor for reach, rivers, and channels
+   a) \code{createBasin}.         constructor for basin
 
-      d) \emph{createReservoir}.      constructor for reservoirs
+   b) \code{createJunction}.      constructor for junction
 
-      e) \emph{createSubbasin}.       constructor for sub-bains
+   c) \code{createReach}.         constructor for reach, rivers, and channels
 
-      f) \emph{createDiversion}.      constructor for diversions
+   d) \code{createReservoir}.     constructor for reservoirs
 
-      g) \emph{addObjectToBasin}.     adding objects form mentioned above constructors to a basin
+   e) \code{createSubbasin}.      constructor for sub-bains
 
-   2- functions for analysis and simulation of hydrologic events.
+   f) \code{createDiversion}.     constructor for diversions
 
-      a) \emph{reachRouting}.         routes a flood in a channel or river
+   g) \code{addObjectToBasin}.    adds objects form mentioned above constructors to a basin inherited from class of \code{createBasin}
 
-      b) \emph{reservoirRouting}.     routes a flood in a reservoir
 
-      c) \emph{transform}.            trnasforms a rainfall event to runoff
 
-      d) \emph{loss}.                 computes the excess rainfall and loss
+2- functions for analysis and simulation of hydrologic events.
 
-      e) \emph{sim}.                  simulates an objects inherited from class of \emph{createBasin}
+   a) \code{reachRouting}.         routes a flood in a channel or river
 
-   3- functions for tunning, summerizing, and visualization.
+   b) \code{reservoirRouting}.     routes a flood in a reservoir
 
-      a) \emph{plot}.
+   c) \code{transform}.            trnasforms a rainfall event to runoff
 
-      b) \emph{summerize}.
+   d) \code{loss}.                 computes the excess rainfall and loss
 
-      c) \emph{tune}.
+   e) \code{sim}.                  simulates an objects inherited from class of \code{createBasin}
+
+
+
+3- functions for tunning, summerizing, and visualization.
+
+   a) \code{plot}.                 plots the results of simulations for the objects built-in the \code{basin}
+
+   b) \code{summerize}.            summerzies the simulation results in the tabular form for every objects existing in the \code{basin}
+
+   c) \code{tune}.                 calibrates an objects inherited from class of \code{createBasin}
 
 }
 \seealso{ \code{\link[RHMS]{sim}} }

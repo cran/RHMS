@@ -4,7 +4,7 @@
 creates a junction object
 }
 \description{
-instantiates an object from class of \emph{createJunction}
+instantiates an object from class of \code{createJunction}
 }
 \usage{
 createJunction(name, downstream,label, 
@@ -28,7 +28,7 @@ an integer (optional): presenting the time steps to delay direct inflow time ser
 }
 }
 \value{
-a list: an object from class \emph{createJunction}
+a list: an object from class \code{createJunction}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

@@ -4,7 +4,7 @@
 creates a reservoir object
 }
 \description{
-instantiates an object from class of \emph{createReservoir}
+instantiates an object from class of \code{createReservoir}
 }
 \usage{
 createReservoir(name , inflow , ratingCurve,
@@ -43,7 +43,7 @@ an integer: the code of downstream object
 }
 }
 \value{
-a list: an object from class of \emph{createReservoir}
+a list: an object from class of \code{createReservoir}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

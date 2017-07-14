@@ -1,10 +1,10 @@
 \name{createJunction.base}
 \alias{createJunction.base}
 \title{
-base function for class of \emph{createJunction}
+base function for class of \code{createJunction}
 }
 \description{
-instantiates an object from class of \emph{createJunction}
+instantiates an object from class of \code{createJunction}
 }
 \usage{
 \method{createJunction}{base}(name , downstream, 
@@ -28,7 +28,7 @@ an integer (optional): presenting the time steps to delay direct inflow time ser
 }
 }
 \value{
-a list: an object from class of \emph{createJunction}
+a list: an object from class of \code{createJunction}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

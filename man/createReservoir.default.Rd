@@ -1,10 +1,10 @@
 \name{createReservoir.default}
 \alias{createReservoir.default}
 \title{
-default function for class of \emph{createReservoir}
+default function for class of \code{createReservoir}
 }
 \description{
-instantiates an object from class of \emph{createReservoir}
+instantiates an object from class of \code{createReservoir}
 }
 \usage{
 \method{createReservoir}{default}(name = "Unttitled", inflow = NA, ratingCurve,
@@ -43,7 +43,7 @@ an integer: the code of downstream object
 }
 }
 \value{
-a list: an object from class of \emph{createReservoir}
+a list: an object from class of \code{createReservoir}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

@@ -4,14 +4,14 @@
 summary method for RHMS objects
 }
 \description{
-summary method for objects inherited from class of \emph{sim}
+summary method for objects inherited from class of \code{sim}
 }
 \usage{
 \method{summary}{sim}(object,...)
 
 }
 \arguments{
-  \item{object}{an object from class of \emph{sim}}
+  \item{object}{an object from class of \code{sim}}
   \item{...}{other objects that can be passed to summary function}
 }
 \value{

@@ -1,10 +1,10 @@
 \name{createBasin.base}
 \alias{createBasin.base}
 \title{
-base function of class of \emph{createBasin}
+base function for class of \code{createBasin}
 }
 \description{
-instantiates an object from class of \emph{createBasin}
+instantiates an object from class of \code{createBasin}
 }
 \usage{
 \method{createBasin}{base}(name, simPeriod, interval)
@@ -21,7 +21,7 @@ number of simulation time steps
 }
 }
 \value{
-a list: an object from class of \emph{creatBasin}
+a list: an object from class of \code{creatBasin}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

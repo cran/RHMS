@@ -4,7 +4,7 @@
 creates a basin
 }
 \description{
-instantiates an object from class of \emph{createBasin}
+instantiates an object from class of \code{createBasin}
 }
 \usage{
 createBasin(name, simPeriod, interval)
@@ -21,7 +21,7 @@ number of simulation time steps
 }
 }
 \value{
-a list: an object from class of \emph{creatBasin}
+a list: an object from class of \code{creatBasin}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

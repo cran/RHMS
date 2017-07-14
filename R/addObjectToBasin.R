@@ -1,12 +1,10 @@
-addObjectToBasin <-
-function(object,basin,type)
-  {
+addObjectToBasin <-function(object,basin)
+{
     if(missing(object)){stop("object is not specified!")}
     if(missing(basin)){stop("basin is not specified!")}
-    if(missing(type)){stop("type of object is not specified!")}
-    object<-object$operation
-    if(type=="reservoir")
+    if(class(object)=="createReservoir")
     {
+      object<-object$operation
       if(is.na(object$inflow))
       {
         outflow<-directInflow<-rep(0,basin$operation$simPeriod)
@@ -30,8 +28,9 @@ function(object,basin,type)
       }
     }  
     
-    if(type=="reach")
+    if(class(object)=="createReach")
     {
+      object<-object$operation
       if(is.na(object$inflow))
       {
         outflow<-directInflow<-rep(0,basin$operation$simPeriod)
@@ -55,8 +54,9 @@ function(object,basin,type)
       }
     }
     
-    if(type=="subbasin")
+    if(class(object)=="createSubbasin")
     {
+      object<-object$operation
       if(is.na(object$inflow))
       {
         outflow<-directInflow<-rep(0,basin$operation$simPeriod)
@@ -80,8 +80,9 @@ function(object,basin,type)
       }
     }
     
-    if(type=="junction")
+    if(class(object)=="createJunction")
     {
+      object<-object$operation
       if(is.na(object$inflow))
       {
         outflow<-directInflow<-rep(0,basin$operation$simPeriod)
@@ -105,14 +106,15 @@ function(object,basin,type)
       }
     }
     
-    if(type=="diversion")
+    if(class(object)=="createDiversion")
     {
+        object<-object$operation
         outflow<-inflow<-rep(0,basin$operation$simPeriod)
         object$inflow <-as.data.frame(inflow)
         object$outflow<-outflow
         basin$operation$diversions[[length(basin$operation$diversions)+1]]<-object
         return(basin)
       }else{
-       stop("wrong object type is specified!")
+       stop("wrong object class is specified!")
       }
-  }
+}

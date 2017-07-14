@@ -4,18 +4,18 @@
 RHMS simulation function
 }
 \description{
-simulates an object inherited form class of \emph{createBasin}
+simulates an object inherited form class of \code{createBasin}
 }
 \usage{
 sim(object)
 }
 \arguments{
   \item{object}{
-an object from class of \emph{createBasin}
+an object from class of \code{createBasin}
 }
 }
 \value{
-a list: the same as objects inherited from class of \emph{createBasin}
+a list: the same as objects inherited from class of \code{createBasin}
 }
 \references{
 NRCS, U. (1986). Urban hydrology for small watersheds-Technical Release 55 (TR55). Water Resources Learning Center. Washington DC.

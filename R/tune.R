@@ -11,12 +11,8 @@ routingBandWith=list(manning = c(0.0001,0.1),x= c(0.2,0.6),k=c(1,5)),update=FALS
 
    obs<-rep(0,object$operation$simPeriod)
    ts<-c(rep(0,delay),observationTS)
-   if(length(ts)<=length(obs))
-   {
-      obs[1:length(ts)]<-ts
-   }else{
-      obs<-ts[1:length(obs)]
-   }
+   if(length(ts)<=length(obs)){obs[1:length(ts)]<-ts}
+   if(length(ts)> length(obs)){obs<-ts[1:length(obs)]}
    observationTS<-obs
    
    refMat<-matrix(NA,5,1)
@@ -128,7 +124,9 @@ routingBandWith=list(manning = c(0.0001,0.1),x= c(0.2,0.6),k=c(1,5)),update=FALS
    if(update)
    {
       return(find_and_set(opt$par))
-   }else{
+   }
+   if(update == FALSE)
+   {
       params<-round(rbind(refMat[4,],opt$par),2)
       rownames(params)<-c("label code","value")
       return(params)

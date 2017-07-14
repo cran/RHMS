@@ -4,24 +4,21 @@
 adds an object to basin
 }
 \description{
-adds an object inherited from a hydrologic feature to a basin instantiated from class of \emph{createBasin}.
+adds an object inherited from a hydrologic feature class to a \code{basin} instantiated from class of \code{createBasin}.
 }
 \usage{
-addObjectToBasin(object, basin, type)
+addObjectToBasin(object, basin)
 }
 \arguments{
   \item{object}{
-an object to be added to the basin
+an object to be added to the \code{basin} inherited from one of the following classes: \code{'createReservoir'},\code{'createReach'},\code{'createSubbasin'},\code{'createJunction'}
 }
   \item{basin}{
-an object inherited from class of \emph{createBasin}
-}
-  \item{type}{
-the type of object to be added to a basin: \emph{'reservoir'},\emph{'reach'},\emph{'subbasin'},\emph{'junction'}
+an object inherited from class of \code{createBasin}
 }
 }
 \value{
-an object from class of \emph{createBasin}
+an object from class of \code{createBasin}
 }
 \seealso{ \code{\link[RHMS]{sim}} }
 \examples{
@@ -58,14 +55,14 @@ Res1<-createReservoir(name = "Reservoir1", inflow = NA, ratingCurve=ratingCurve1
 
 basin1<-createBasin(name = "Ghezil_Ozan", simPeriod=200, interval=3600)
 
-basin1<-addObjectToBasin(Junc1, basin1, "junction")
-basin1<-addObjectToBasin(R1, basin1, "reach")
-basin1<-addObjectToBasin(R2, basin1, "reach")
-basin1<-addObjectToBasin(R3, basin1, "reach")
-basin1<-addObjectToBasin(S1, basin1, "subbasin")
-basin1<-addObjectToBasin(S2, basin1, "subbasin")
-basin1<-addObjectToBasin(Res1, basin1, "reservoir")
-basin1<-addObjectToBasin(D1, basin1, "diversion")
+basin1<-addObjectToBasin(Junc1, basin1)
+basin1<-addObjectToBasin(R1, basin1)
+basin1<-addObjectToBasin(R2, basin1)
+basin1<-addObjectToBasin(R3, basin1)
+basin1<-addObjectToBasin(S1, basin1)
+basin1<-addObjectToBasin(S2, basin1)
+basin1<-addObjectToBasin(Res1, basin1)
+basin1<-addObjectToBasin(D1, basin1)
 
 object<-sim(basin1)
 

@@ -1,10 +1,10 @@
 \name{createDiversion.default}
 \alias{createDiversion.default}
 \title{
-default function of class of \emph{createDiversion}
+default function for class of \code{createDiversion}
 }
 \description{
-instantiates an object from class of \emph{createDiversion}
+instantiates an object from class of \code{createDiversion}
 }
 \usage{
 \method{createDiversion}{default}(name="Unttitled",label,downstream=NA,divertTo,capacity)
@@ -27,7 +27,7 @@ diversion capacity (cms)
 }
 }
 \value{
-a list: an object from class of list instantiated by \emph{createDiversion}
+a list: an object from class of list instantiated by \code{createDiversion}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

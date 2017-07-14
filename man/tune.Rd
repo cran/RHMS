@@ -4,7 +4,7 @@
 tunning an RHMS model
 }
 \description{
-a function for tunning an RHMS model based on a set of observed time series, using \emph{'particle swarm optimization'}
+a function for tunning an RHMS model based on a set of observed time series, using \emph{particle swarm optimization}
 }
 \usage{
 tune(object, observationTS, labelTS, delay=0,tuneLabels,maxiter,
@@ -19,13 +19,13 @@ tune(object, observationTS, labelTS, delay=0,tuneLabels,maxiter,
 }
 \arguments{
   \item{object}{
-an object from class of \emph{createBasin}
+an object from class of \code{createBasin}
 }
   \item{observationTS}{
 a vector: an observed time series (cms)
 }
   \item{labelTS}{
-an integer: label of the object associated to the \emph{'observationTS'}
+an integer: label of the object associated to the \code{observationTS}
 }
   \item{delay}{
 an integer: presenting the number of time steps to delay direct inflow time series
@@ -38,17 +38,17 @@ an integer: maximum number of iterations
 }
   \item{transformBandWith}{
 an list: a list of vector(s), including upper and lower limit of parameters of tansformation methods. Each parameter search domain is set as a two-value vector, whose first element includes lower limit and second elemnt is upper limit.
-\emph{Ct=[1, 2.5]} and \emph{Cp=[0.1, 0.3]} are parameters for \emph{Snyder Unit Hydrograph (SUH)}, \emph{cn=[25, 85]} curve number for \emph{SCS} loss method,  and \emph{'k'} for \emph{horton} loss method.
+\code{Ct}=[1, 2.5] and \code{Cp}=[0.1, 0.3] are parameters for \code{"Snyder"} Unit Hydrograph (SUH), \code{cn}=[25, 85] curve number for \code{"SCS"} loss method,  and \code{k} for \code{"horton"} loss method.
 }
   \item{routingBandWith}{
 an list: a list of vector(s), including upper and lower limit of parameters of routing methods. Each parameter search domain is set as a two-value vector, whose first element includes lower limit and second elemnt is upper limit.
-\emph{manning=[0.0001, 0.1]} is a parameter used \emph{muskingum cunge} method, and \emph{x = [0.2, 0.6]} and \emph{k=[1, 5]} belong to \emph{muskingum} channel routing method.
+\code{manning}=[0.0001, 0.1] is a parameter used \code{"muskingumcunge"} method, and \code{x} = [0.2, 0.6] and \code{k}=[1, 5] belong to \code{"muskingum"} channel routing method.
 }
   \item{update}{
-logical: If FALSE, the optimized parameter(s) are returned,If TRUE, the calibrated object frpm class of \emph{createBasin} is returned}
+logical: If FALSE, the optimized parameter(s) are returned,If TRUE, the calibrated object from class of \code{createBasin} is returned}
 }
 \value{
-a vector of tunned parameters or an object from class of \emph{createBasin}
+a vector of tunned parameters or an object from class of \code{createBasin}
 }
 \references{
 Kennedy, J. (1997). "The particle swarm: social adaptation of knowledge". Proceedings of IEEE International Conference on Evolutionary Computation. pp. 303-308
@@ -80,11 +80,11 @@ R2<-createReach(name="R2",routingMethod="muskingumcunge",
 J1<-createJunction (name="J1",downstream=NA,label=5)
 
 basin1<-createBasin(name = "Ghezil_Ozan", simPeriod=100, interval=3600)
-basin1<-addObjectToBasin(S1, basin1, "subbasin")
-basin1<-addObjectToBasin(S2, basin1, "subbasin")
-basin1<-addObjectToBasin(R1, basin1, "reach")
-basin1<-addObjectToBasin(R2, basin1, "reach")
-basin1<-addObjectToBasin(J1, basin1, "junction")
+basin1<-addObjectToBasin(S1, basin1)
+basin1<-addObjectToBasin(S2, basin1)
+basin1<-addObjectToBasin(R1, basin1)
+basin1<-addObjectToBasin(R2, basin1)
+basin1<-addObjectToBasin(J1, basin1)
 
 simulated<-sim(basin1)
 
@@ -106,9 +106,13 @@ routingBandWith=list(maning = c(0.0001,0.1),
                      k      = c(1     ,5))
 labelTS<-5 ; tuneLabels<-1:4
 \dontrun{
-tune(basin1, observationTS,maxiter,
-     labelTS,tuneLabels,
-     transformBandWith,routingBandWith)
+tune(object=basin1, 
+     labelTS=labelTS,
+     maxiter=maxiter,
+     tuneLabels=tuneLabels,
+     observationTS=observationTS,
+     routingBandWith=routingBandWith,
+     transformBandWith=transformBandWith)
 }
 }
 \author{

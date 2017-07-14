@@ -2,10 +2,10 @@
 \alias{Zaab}
 \docType{data}
 \title{
-Zaab, a basin inKurdistan, datasets. 
+datasets for Zaab subbasin, a subbasin in Kurdistan, Iran. 
 }
 \description{
-an object inherited from class of \emph{createBasin}. including features, of a sub-basin in Kurditan known as Zaab, such as: reservoirs, reachs, subbasins, and junctions.
+an object inherited from class of \code{createBasin}. including features, of a sub-basin in Kurditan known as Zaab, such as: reservoirs, reachs, subbasins, and junctions.
 }
 \usage{data(Zaab)}
 \source{

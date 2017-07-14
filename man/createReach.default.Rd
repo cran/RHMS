@@ -1,10 +1,10 @@
 \name{createReach.default}
 \alias{createReach.default}
 \title{
-default function for class of \emph{createReach}
+default function for class of \code{createReach}
 }
 \description{
-instantiates an object from class of \emph{createReach}
+instantiates an object from class of \code{createReach}
 }
 \usage{
 \method{createReach}{default}(name="Unttitled",routingMethod="muskingum",inflow=NA,
@@ -18,14 +18,14 @@ instantiates an object from class of \emph{createReach}
 a string: the name of reach to be instantiated
 }
   \item{routingMethod}{
-a string: the method of channel routing. available types: \emph{'muskingum'}, and \emph{'muskingumcunge'}
+a string: the method of channel routing. available types: \code{"muskingum"}, and \code{"muskingumcunge"}
 }
   \item{inflow}{
 a vector (optional): a time series of direct inflow rather than flows comming from upstream (cms)
 }
   \item{routingParams}{
-a list : parameters associated to the \emph{routingMethod}: \emph{'k'} and \emph{'x'} for \emph{'muskingum'}, \emph{'bedWith'} (m),
-\emph{'sideSlope'} (m/m), \emph{'channelSlope'} (m/m), \emph{'manningRoughness'}, \emph{'riverLength'} (Km) for \emph{'muskingumcunge'}
+a list : parameters associated to the \code{routingMethod}: \code{k} and \code{x} for \code{"muskingum"}, \code{bedWith} (m),
+\code{sideSlope} (m/m), \code{channelSlope} (m/m), \code{manningRoughness}, \code{riverLength} (Km) for \code{"muskingumcunge"}
 }
   \item{delayInflow}{
 an integer (optional): presenting the time steps to delay direct inflow time series
@@ -38,7 +38,7 @@ an integer: the code of downstream object
 }
 }
 \value{
-a list: an object from class of \emph{createReach}
+a list: an object from class of \code{createReach}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{
