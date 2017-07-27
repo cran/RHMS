@@ -12,53 +12,54 @@ The RHMS package provides tools to R users for simulation of hydrologic events. 
 \tabular{ll}{
 Package: \tab RHMS\cr
 Type: \tab Package\cr
-Version: \tab 1.2\cr
-Date: \tab 2017-03-28\cr
+Version: \tab 1.3\cr
+Date: \tab 2017-07-27\cr
 License: \tab GPL-3\cr
 }
 the package include three major types of functions as follows:
 
 
-
 1- functions for construction and manipulatation of hydrologic features.
 
-   a) \code{createBasin}.         constructor for basin
+   a) \code{\link[RHMS]{createBasin}}.         constructor for basin
 
-   b) \code{createJunction}.      constructor for junction
+   b) \code{\link[RHMS]{createJunction}}.      constructor for junction
 
-   c) \code{createReach}.         constructor for reach, rivers, and channels
+   c) \code{\link[RHMS]{createReach}}.         constructor for reach, rivers, and channels
 
-   d) \code{createReservoir}.     constructor for reservoirs
+   d) \code{\link[RHMS]{createReservoir}}.     constructor for reservoirs
 
-   e) \code{createSubbasin}.      constructor for sub-bains
+   e) \code{\link[RHMS]{createSubbasin}}.      constructor for sub-bains
 
-   f) \code{createDiversion}.     constructor for diversions
+   f) \code{\link[RHMS]{createDiversion}}.     constructor for diversions
 
-   g) \code{addObjectToBasin}.    adds objects form mentioned above constructors to a basin inherited from class of \code{createBasin}
+   g) \code{\link[RHMS]{addObjectToBasin}}.    adds objects form mentioned above constructors to a basin inherited from class of \code{createBasin}
+
 
 
 
 2- functions for analysis and simulation of hydrologic events.
 
-   a) \code{reachRouting}.         routes a flood in a channel or river
+   a) \code{\link[RHMS]{reachRouting}}.         routes a flood in a channel or river
 
-   b) \code{reservoirRouting}.     routes a flood in a reservoir
+   b) \code{\link[RHMS]{reservoirRouting}}.     routes a flood in a reservoir
 
-   c) \code{transform}.            trnasforms a rainfall event to runoff
+   c) \code{\link[RHMS]{transform}}.            trnasforms a rainfall event to runoff
 
-   d) \code{loss}.                 computes the excess rainfall and loss
+   d) \code{\link[RHMS]{loss}}.                 computes the excess rainfall and loss
 
-   e) \code{sim}.                  simulates an objects inherited from class of \code{createBasin}
+   e) \code{\link[RHMS]{sim}}.                  simulates an objects inherited from class of \code{createBasin}
+
 
 
 
 3- functions for tunning, summerizing, and visualization.
 
-   a) \code{plot}.                 plots the results of simulations for the objects built-in the \code{basin}
+   a) \code{\link[RHMS]{plot.sim}}.                 plots the results of simulations for the objects built-in the \code{basin}
 
-   b) \code{summerize}.            summerzies the simulation results in the tabular form for every objects existing in the \code{basin}
+   b) \code{\link[RHMS]{summary.sim}}.            summerzies the simulation results in the tabular form for every objects existing in the \code{basin}
 
-   c) \code{tune}.                 calibrates an objects inherited from class of \code{createBasin}
+   c) \code{\link[RHMS]{tune}}.                 calibrates an objects inherited from class of \code{createBasin}
 
 }
 \seealso{ \code{\link[RHMS]{sim}} }

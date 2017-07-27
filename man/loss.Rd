@@ -7,8 +7,8 @@ Excess rainfall computation
 this function provides parametric methods (e.g. \code{"horton"} and \code{"SCS"}) to compute loss and direct runoff depths
 }
 \usage{
-loss(precipitation,lossParams=list(f0,f1,k,CN),
-simulation=c(interval=3600,period=NA),lossMethod)
+loss(precipitation,lossParams,
+simulation,lossMethod)
 }
 \arguments{
   \item{precipitation}{a vector of precipitation time series(mm)}
@@ -20,7 +20,7 @@ simulation=c(interval=3600,period=NA),lossMethod)
 \value{
 a dataframe: including precipitation, loss, and exess rainfall depth
 }
-\seealso{\code{\link[RHMS]{createSubbasin}}}
+\seealso{\code{\link[RHMS]{transform}}}
 \examples{
 precipitation<-sin(seq(0.1,pi-0.1,length.out=10))*30
 lossParams<-list(f0=20,f1=5,k=2,CN=65)

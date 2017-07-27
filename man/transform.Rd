@@ -8,12 +8,8 @@ This function transforms an excess rainfall event to a direct runoff hydorgraph.
 }
 \usage{
 transform(rainfall,
-          transformParams=list(Tlag=NULL,
-                               Cp  =NULL,
-                               Ct  =NULL,
-                               L   =NULL,
-                               Lc  =NULL),
-          Area,simulation=c(interval=3600*1,period=NA),UH,
+          transformParams,
+          Area,simulation,UH,
           transformMethod)
 }
 \arguments{

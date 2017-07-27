@@ -120,7 +120,7 @@ function(object)
                                       capacity,
                                       simulation=c(interval=object$interval,period=object$simPeriod))
             object$reservoirs[[i]]$simResault<-resault
-            outflow<-resault[,4]
+            outflow<-resault$operation[,4]
             object$reservoirs[[i]]$outflow<-outflow
             downstreamCode<-labelMat[2,idUpstream[n]]
             if(is.na(downstreamCode))
@@ -146,9 +146,7 @@ function(object)
                                     routingMethod,
                                     routingParams,
                                     simulation=c(interval=object$interval,period=object$simPeriod))
-              if(routingMethod=="muskingum")      {outflow<-resault[,3]}
-              if(routingMethod=="muskingumcunge") {outflow<-resault[,ncol(resault)]}
-              
+              outflow<-resault$operation[,ncol(resault$operation)]
               object$reachs[[j]]$outflow<-outflow
               downstreamCode<-labelMat[2,idUpstream[n]]
               if(is.na(downstreamCode))
@@ -197,7 +195,7 @@ function(object)
               rainfall       <-loss(precipitation,lossParams,simulation=c(interval=object$interval,period=object$simPeriod),lossMethod)
               resault<-transform (rainfall,transformParams,Area,simulation=c(interval=object$interval,period=object$simPeriod),UH,transformMethod)
               object$subbasins[[l]]$simResault<-resault
-              outflow<-resault[,4]+inflow
+              outflow<-resault$operation[,ncol(resault$operation)]+inflow
               object$subbasins[[l]]$outflow<-outflow
               downstreamCode<-labelMat[2,idUpstream[n]]
               if(is.na(downstreamCode))

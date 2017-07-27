@@ -179,8 +179,8 @@ function(x,...)
                legend("topright",legend=name,col=1:length(name),lty=1:(ncol(inflow)+1))
             }
             n<-length(object$subbasins[[i]]$precipitation)
-            Precipitation<-object$subbasins[[i]]$simResault[1:n,1]
-            exPrecipitation<-object$subbasins[[i]]$simResault[1:n,3]
+            Precipitation<-object$subbasins[[i]]$simResault$operation[1:n,1]
+            exPrecipitation<-object$subbasins[[i]]$simResault$operation[1:n,3]
             p1<-list(breaks=1:n,
                      counts=Precipitation,
                      density=Precipitation/sum(Precipitation),

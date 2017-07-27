@@ -5,6 +5,10 @@ function(object)
    {
       stop("Missing HMS object!")
    }
+   if(class(object) != "createBasin")
+   {
+      stop("the object must be from class of createBasin!")
+   }
    result<-list()
    operation<-sim.base(object)
    result$operation<-operation
