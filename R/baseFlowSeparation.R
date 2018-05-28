@@ -1,0 +1,1 @@
+baseFlowSeparation<-function(Q,BFSMethod,BFSParams,plot) UseMethod("baseFlowSeparation")

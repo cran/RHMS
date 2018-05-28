@@ -38,8 +38,8 @@ R3<-createReach(name="Reach3",label=6,downstream=7,
                                    riverLength=120))
 S1<-createSubbasin(name="Sub1",Area=500,label=1,downstream=8,
                    precipitation=round(sin(seq(0,pi,length.out=24))*20),
-                   transformMethod="SCS",lossMethod="SCS",
-                   transformParams=list(Tlag=4),lossParams=list(CN=70))
+                   transformMethod="SCS",lossMethod="SCS",BFSMethod='recession',
+                   transformParams=list(Tlag=4),lossParams=list(CN=70),BFSParams=list(k=1.1))
 S2<-createSubbasin(name="Sub2",Area=650,label=2,downstream=4,
                    precipitation=round(sin(seq(0,pi,length.out=24))*20),
                    transformMethod="snyder",lossMethod="horton",
@@ -64,7 +64,11 @@ basin1<-addObjectToBasin(S2, basin1)
 basin1<-addObjectToBasin(Res1, basin1)
 basin1<-addObjectToBasin(D1, basin1)
 
+\dontrun{plot(basin1)}
+
 object<-sim(basin1)
+
+\dontrun{plot(object)}
 
 summary(object)
 }

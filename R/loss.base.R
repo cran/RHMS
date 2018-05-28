@@ -30,8 +30,16 @@ function(precipitation,lossParams,simulation,lossMethod)
       mat[which(is.na(mat[,4])),4]<-0
       mat[,5]<-c(mat[1,4],diff(mat[,4]))
       mat[,6]<-precipitation-mat[,5]
-      return(cbind(Rainfall=precipitation,mat[,6:5]))
-   }else{
-      stop("wrong loss method type!")
+      mat    <-cbind(Rainfall=precipitation,mat[,6:5])
+      return(mat)
+      if(lossMethod=="none")  
+      {
+         mat<-matrix(NA,length(precipitation),3)
+         colnames(mat)<-c("Rainfall","Loss","ExcessRainfall")
+         mat[,1]<-precipitation
+         mat[,2]<-rep(0,length(precipitation))
+         mat[,3]<-mat[,1]-mat[,2]
+         return(mat)
+      }
    }
 }

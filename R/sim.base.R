@@ -95,6 +95,8 @@ function(object)
     if(is.na(matched)){stop("please check objects downstream connectivity!")}
   }
 
+  simulation <-c(interval=object$interval,period=object$simPeriod)
+
   while(length(idUpstream)>0)
   {
     for(n in 1:length(idUpstream))
@@ -118,7 +120,7 @@ function(object)
                                       dischargeCurve,
                                       initialStorage,
                                       capacity,
-                                      simulation=c(interval=object$interval,period=object$simPeriod))
+                                      simulation)
             object$reservoirs[[i]]$simResault<-resault
             outflow<-resault$operation[,4]
             object$reservoirs[[i]]$outflow<-outflow
@@ -145,7 +147,7 @@ function(object)
               resault<-reachRouting(inflow,
                                     routingMethod,
                                     routingParams,
-                                    simulation=c(interval=object$interval,period=object$simPeriod))
+                                    simulation)
               outflow<-resault$operation[,ncol(resault$operation)]
               object$reachs[[j]]$outflow<-outflow
               downstreamCode<-labelMat[2,idUpstream[n]]
@@ -184,18 +186,23 @@ function(object)
           {
             if(currentCode==object$subbasins[[l]]$label)
             {
-              inflow         <-apply(object$subbasins[[l]]$inflow,1,sum,na.rm=TRUE)
-              precipitation  <-object$subbasins[[l]]$precipitation
-              Area           <-object$subbasins[[l]]$Area
+              inflow                <-apply(object$subbasins[[l]]$inflow,1,sum,na.rm=TRUE)
+              precipitation         <-object$subbasins[[l]]$precipitation
+              Area                  <-object$subbasins[[l]]$Area
               transformMethod<-object$subbasins[[l]]$transformMethod
-              lossMethod     <-object$subbasins[[l]]$lossMethod
-              UH             <-object$subbasins[[l]]$UH
+              lossMethod            <-object$subbasins[[l]]$lossMethod
+              BFSMethod             <-object$subbasins[[l]]$BFSMethod
+              UH                    <-object$subbasins[[l]]$UH
               transformParams<-object$subbasins[[l]]$transformParams
-              lossParams     <-object$subbasins[[l]]$lossParams
-              rainfall       <-loss(precipitation,lossParams,simulation=c(interval=object$interval,period=object$simPeriod),lossMethod)
-              resault<-transform (rainfall,transformParams,Area,simulation=c(interval=object$interval,period=object$simPeriod),UH,transformMethod)
-              object$subbasins[[l]]$simResault<-resault
-              outflow<-resault$operation[,ncol(resault$operation)]+inflow
+              lossParams            <-object$subbasins[[l]]$lossParams
+              BFSParams             <-object$subbasins[[l]]$BFSParams
+              BFSParams$timeInterval<- simulation[1]
+              exRainfall            <-loss(precipitation,lossParams,simulation,lossMethod)
+              transResault          <-transform(exRainfall,transformParams,Area,simulation,UH,transformMethod)
+              object$subbasins[[l]]$transformResault<-transResault
+              outflow<-transResault$operation[,ncol(transResault$operation)]+inflow
+              BFSResault            <-baseFlowSeparation(outflow,BFSMethod,BFSParams,plot=FALSE)
+              object$subbasins[[l]]$BFSResault<-BFSResault
               object$subbasins[[l]]$outflow<-outflow
               downstreamCode<-labelMat[2,idUpstream[n]]
               if(is.na(downstreamCode))
@@ -233,7 +240,6 @@ function(object)
             }
           }
         }
-
     }
     labelMat<-as.matrix(labelMat[,-idUpstream])
     idUpstream<-which(is.na(match(labelMat[1,],labelMat[2,]))==TRUE)

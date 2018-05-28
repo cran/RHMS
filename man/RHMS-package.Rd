@@ -12,8 +12,8 @@ The RHMS package provides tools to R users for simulation of hydrologic events. 
 \tabular{ll}{
 Package: \tab RHMS\cr
 Type: \tab Package\cr
-Version: \tab 1.3\cr
-Date: \tab 2017-07-27\cr
+Version: \tab 1.4\cr
+Date: \tab 2018-05-28\cr
 License: \tab GPL-3\cr
 }
 the package include three major types of functions as follows:
@@ -37,7 +37,6 @@ the package include three major types of functions as follows:
 
 
 
-
 2- functions for analysis and simulation of hydrologic events.
 
    a) \code{\link[RHMS]{reachRouting}}.         routes a flood in a channel or river
@@ -46,20 +45,22 @@ the package include three major types of functions as follows:
 
    c) \code{\link[RHMS]{transform}}.            trnasforms a rainfall event to runoff
 
-   d) \code{\link[RHMS]{loss}}.                 computes the excess rainfall and loss
+   d) \code{\link[RHMS]{loss}}.                 computes excess rainfall and loss depths
+
+   e) \code{\link[RHMS]{baseFlowSeparation}}.   separates baseflow from a given discharge series
 
    e) \code{\link[RHMS]{sim}}.                  simulates an objects inherited from class of \code{createBasin}
 
 
-
-
 3- functions for tunning, summerizing, and visualization.
 
-   a) \code{\link[RHMS]{plot.sim}}.                 plots the results of simulations for the objects built-in the \code{basin}
+   a) \code{\link[RHMS]{plot.sim}}.             plots the objects inherited from class of \code{\link[RHMS]{sim}}
 
-   b) \code{\link[RHMS]{summary.sim}}.            summerzies the simulation results in the tabular form for every objects existing in the \code{basin}
+   b) \code{\link[RHMS]{plot.createBasin}}.     plots the objects inherited from class of \code{\link[RHMS]{createBasin}}
 
-   c) \code{\link[RHMS]{tune}}.                 calibrates an objects inherited from class of \code{createBasin}
+   c) \code{\link[RHMS]{summary.sim}}.          summerzies the simulation results in the tabular form for every objects existing in the \code{basin}
+
+   d) \code{\link[RHMS]{tune}}.                 calibrates an objects inherited from class of \code{createBasin}
 
 }
 \seealso{ \code{\link[RHMS]{sim}} }

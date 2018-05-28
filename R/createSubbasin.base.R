@@ -1,6 +1,32 @@
 createSubbasin.base <-
-function(name,precipitation,inflow,Area,delayInflow,label,downstream,transformMethod,lossMethod,UH,transformParams,lossParams)
+function(name,
+         precipitation,
+         inflow,
+         Area,
+         delayInflow,
+         label,
+         downstream,
+         transformMethod,
+         lossMethod,
+         BFSMethod,
+         UH,
+         transformParams,
+         lossParams,
+         BFSParams)
 {
-   subBasin<-list(name=name,precipitation=precipitation,Area=Area,delayInflow=delayInflow,label=label,downstream=downstream,inflow=inflow,transformMethod=transformMethod,lossMethod=lossMethod,HU=UH,transformParams=transformParams,lossParams=lossParams)
+   subBasin<-list(name=name,
+                  precipitation=precipitation,
+                  Area=Area,
+                  delayInflow=delayInflow,
+                  label=label,
+                  downstream=downstream,
+                  inflow=inflow,
+                  transformMethod=transformMethod,
+                  lossMethod=lossMethod,
+                  BFSMethod=BFSMethod,
+                  HU=UH,
+                  transformParams=transformParams,
+                  lossParams=lossParams,
+                  BFSParams=BFSParams)
    return(subBasin) 
 }

@@ -1,12 +1,13 @@
 transform.default <-
-function(rainfall,transformParams=list(Tlag=NULL,Cp=NULL,Ct=NULL,L=NULL,Lc=NULL),Area,simulation=c(interval=3600*1,period=NA),UH,transformMethod)
+function(rainfall,transformParams=list(Tlag=NULL,Cp=NULL,Ct=NULL,L=NULL,Lc=NULL),
+         Area,simulation=c(interval=3600*1,period=NA),UH,transformMethod)
 {
    if(missing(rainfall)){stop("rainfall is missing!")}
    if(missing(Area))    {stop("area is missing!")}
    if(transformMethod=="user")
    {
-      if(is.na(UH)){stop("missing user defined unit hydrograph!")} 
-      if(ncol(UH) != 2){stop("UH must be a 2-collumn data.frame!")}
+      if(all(is.na(UH))){stop("missing user defined unit hydrograph!")} 
+      if(ncol(UH) != 2){stop("UH must be a 2-collumn data-frame!")}
    }
    if(transformMethod=="SCS")
    {

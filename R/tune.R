@@ -1,4 +1,4 @@
-tune <-
+tune<-
 function(object, observationTS, labelTS, delay=0,tuneLabels,maxiter,
 transformBandWith=list(ct=c(1,2.5),cp=c(0.1,0.3),cn=c(25,85),k=c(0.1,2)),
 routingBandWith=list(manning = c(0.0001,0.1),x= c(0.2,0.6),k=c(1,5)),update=FALSE)

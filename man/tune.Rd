@@ -8,14 +8,14 @@ a function for tunning an RHMS model based on a set of observed time series, usi
 }
 \usage{
 tune(object, observationTS, labelTS, delay=0,tuneLabels,maxiter,
-     transformBandWith=list(ct=c(1  ,2.5),
-                            cp=c(0.1,0.3),
-                            cn=c(25 ,85 ),
-                            k =c(0.1,2  )),
-     routingBandWith=list(manning = c(0.0001, 0.1),
-                          x       = c(0.2   , 0.6), 
-                          k       =c(1      , 5  )),
-     update=FALSE)
+                  transformBandWith=list(ct=c(1  ,2.5),
+                                         cp=c(0.1,0.3),
+                                         cn=c(25 ,85 ),
+                                         k =c(0.1,2  )),
+                  routingBandWith=list(manning = c(0.0001, 0.1),
+                                       x       = c(0.2   , 0.6), 
+                                       k       =c(1      , 5  )),
+                  update=FALSE)
 }
 \arguments{
   \item{object}{
@@ -86,6 +86,10 @@ basin1<-addObjectToBasin(R1, basin1)
 basin1<-addObjectToBasin(R2, basin1)
 basin1<-addObjectToBasin(J1, basin1)
 
+\dontrun{
+plot(basin1)
+}
+
 simulated<-sim(basin1)
 
 observationTS1<-simulated$operation$junctions[[1]]$outflow
@@ -94,8 +98,8 @@ observationTS1<-observationTS1+rnorm(length(observationTS1),0,200)
 y<-observationTS1; x<-1:length(observationTS1)
 observationTS1<-predict(loess(y~x),x)
 observationTS1[which(observationTS1<0)]<-0
-
 observationTS<-observationTS1
+
 maxiter <- 20
 transformBandWith=list(ct=c(1  ,2.5),
                        cp=c(0.1,0.3),

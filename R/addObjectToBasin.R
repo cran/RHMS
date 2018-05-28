@@ -114,7 +114,7 @@ addObjectToBasin <-function(object,basin)
         object$outflow<-outflow
         basin$operation$diversions[[length(basin$operation$diversions)+1]]<-object
         return(basin)
-      }else{
+    }else{
        stop("wrong object class is specified!")
-      }
+    }
 }
