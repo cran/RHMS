@@ -1,0 +1,1 @@
+abstraction<-function(rainfall,abstractionParams) UseMethod("abstraction")

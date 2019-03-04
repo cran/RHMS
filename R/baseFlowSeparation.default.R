@@ -1,8 +1,12 @@
-baseFlowSeparation.default<-function(Q,BFSMethod='none',BFSParams=list(alpha=NULL,BFI=NULL,k=NULL,timeInterval=NULL),plot=TRUE)
+baseFlowSeparation.default<-function(discharge,BFSMethod='none',BFSParams=list(alpha=NULL,BFI=NULL,k=NULL,timeInterval=NULL),plot=FALSE)
 {
-   if(missing(Q))
+   if(missing(discharge))
    {
       stop('discharge time series is missing!')
+   }
+   if(class(discharge)=='transform')
+   {
+      discharge<-discharge$operation[,ncol(discharge$operation)]
    }
    if(missing(BFSMethod))
    {
@@ -24,9 +28,9 @@ baseFlowSeparation.default<-function(Q,BFSMethod='none',BFSParams=list(alpha=NUL
    {
       stop('missing parameter(s), k and or timeInterval, required for the recession method!')
    }
-   
+
    result<-list()
-   operation<-baseFlowSeparation.base(Q,BFSMethod,BFSParams,plot)
+   operation<-baseFlowSeparation.base(discharge,BFSMethod,BFSParams,plot)
    result$operation<-operation
    result$call<-match.call()
    class(result)<-"baseFlowSeparation"

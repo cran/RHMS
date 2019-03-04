@@ -1,2 +1,2 @@
 createReach <-
-function(name,routingMethod,inflow,routingParams,delayInflow,label,downstream) UseMethod("createReach")
+function(name,routingMethod,inflow,routingParams,delayInflow,downstream) UseMethod("createReach")

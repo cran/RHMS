@@ -1,30 +1,27 @@
 reachRouting.base <-
 function(inflow,routingMethod,routingParams,simulation)
 {
-   if(is.na(simulation[2])){simulation[2]<-length(inflow)}
-   if(sum(inflow)==0)
+   if(all(inflow == 0))
    {
-      return(cbind(inflow=rep(0,simulation[2]),outflow=rep(0,simulation[2])))
+      return(cbind(inflow=rep(0,length(simulation$simulationSteps)),outflow=rep(0,length(simulation$simulationSteps))))
    }
-
    if(routingMethod=="muskingum")
    {
       k<-routingParams$k
       x<-routingParams$x
-      C1<-(simulation[1]/3600+2*k*x)/(simulation[1]/3600+2*k-2*k*x)
-      C2<-(simulation[1]/3600-2*k*x)/(simulation[1]/3600+2*k-2*k*x)
+      C1<-(simulation$by/3600+2*k*x)/(simulation$by/3600+2*k-2*k*x)
+      C2<-(simulation$by/3600-2*k*x)/(simulation$by/3600+2*k-2*k*x)
       C3<-1-(C1+C2)
-      if(is.na(simulation[2])){simulation[2]<-(simulation[1]/3600)*length(inflow)*1.5}
-      mat<-matrix(0,simulation[2],3)
-      mat[,1]<-(1:simulation[2])*simulation[1]/3600
-      colnames(mat)<-c("T","I","O")
-      mat[1:length(inflow),2]<-inflow
-      mat[1,3]<-0
+      mat<-as.data.frame(matrix(0,length(simulation$simulationSteps),2))
+      colnames(mat)<-c("I","O")
+      rownames(mat)<-simulation$simulationSteps
+      mat[,1]<-inflow
+      mat[1,2]<-0
       for(t in 2:(nrow(mat)))
       {
-         mat[t,3]<-C1*mat[t-1,2]+C2*mat[t,2]+C3*mat[t-1,3]
+         mat[t,2]<-C1*mat[t-1,1]+C2*mat[t,1]+C3*mat[t-1,2]
       }
-      mat[which(mat[,3]<0),3]<-0
+      mat[which(mat[,2]<0),2]<-0
       return(mat)
    }
    if(routingMethod=="muskingumcunge")
@@ -34,9 +31,7 @@ function(inflow,routingMethod,routingParams,simulation)
       m<-routingParams$sideSlope
       n<-routingParams$manningRoughness
       L<-routingParams$riverLength
-      interval<-simulation[1]
-      simPeriod<-simulation[2]
-      dt<-interval
+      dt<-simulation$by
       Qave<-mean(inflow)
       y0<-uniroot(function(y){(1.49*S^0.5/n)* ((y*(b+m*y))^(5/3))/((b+2*y*(1+m^2))^(2/3))-Qave},lower=0,upper=100)$root
       V<-Qave/(y0*(b+2*y0))
@@ -48,13 +43,12 @@ function(inflow,routingMethod,routingParams,simulation)
       C0<-(0.5*cn-X)/(1-X+0.5*cn)
       C1<-(0.5*cn+X)/(1-X+0.5*cn)
       C2<-(1-0.5*cn-X)/(1-X+0.5*cn)
-      mat<-matrix(0,simPeriod,(round(L/(dx/1000))+1))
-      mat[1:length(inflow),1]<-inflow
-
+      mat<-matrix(0,length(simulation$simulationSteps),(round(L/(dx/1000))+1))
+      mat[,1]<-inflow
       for(i in 2:(round(L/(dx/1000))+1))
       {
          mat[1,i]<-mat[1,i-1]
-         for(j in 2:simPeriod)
+         for(j in 2:length(simulation$simulationSteps))
          {
             Q0<-C0*mat[j,i-1]
             Q1<-C1*mat[j-1,i-1]
@@ -74,8 +68,9 @@ function(inflow,routingMethod,routingParams,simulation)
          mat[,i]<-Q
       }
       mat[which(mat<0)]<-0
+      mat<-as.data.frame(mat)
       colnames(mat)<-c("inflow",paste(round(1:(round(L/(dx/1000)))*dx/1000),"Km"))
-      rownames(mat)<-paste(dt/3600*(1:nrow(mat)),"Hr")
+      rownames(mat)<-simulation$simulationSteps
       return(mat)
    }
 }

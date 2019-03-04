@@ -95,8 +95,6 @@ function(object)
     if(is.na(matched)){stop("please check objects downstream connectivity!")}
   }
 
-  simulation <-c(interval=object$interval,period=object$simPeriod)
-
   while(length(idUpstream)>0)
   {
     for(n in 1:length(idUpstream))
@@ -111,19 +109,15 @@ function(object)
           if(currentCode==object$reservoirs[[i]]$label)
           {
             inflow  <-apply(object$reservoirs[[i]]$inflow,1,sum)
-            ratingCurve   <-object$reservoirs[[i]]$ratingCurve
-            dischargeCurve<-object$reservoirs[[i]]$dischargeCurve
+            geometry<-object$reservoirs[[i]]$geometry
             initialStorage<-object$reservoirs[[i]]$initialStorage
-            capacity      <-object$reservoirs[[i]]$capacity
             resault<-reservoirRouting(inflow,
-                                      ratingCurve,
-                                      dischargeCurve,
+                                      geometry,
                                       initialStorage,
-                                      capacity,
-                                      simulation)
+                                      object$simulation)
             object$reservoirs[[i]]$simResault<-resault
-            outflow<-resault$operation[,4]
-            object$reservoirs[[i]]$outflow<-outflow
+            outflow<-resault$operation[,3]
+            object$reservoirs[[i]]$outflow[,1]<-outflow
             downstreamCode<-labelMat[2,idUpstream[n]]
             if(is.na(downstreamCode))
             {
@@ -147,9 +141,9 @@ function(object)
               resault<-reachRouting(inflow,
                                     routingMethod,
                                     routingParams,
-                                    simulation)
+                                    object$simulation)
               outflow<-resault$operation[,ncol(resault$operation)]
-              object$reachs[[j]]$outflow<-outflow
+              object$reachs[[j]]$outflow[,1]<-outflow
               downstreamCode<-labelMat[2,idUpstream[n]]
               if(is.na(downstreamCode))
               {
@@ -168,7 +162,7 @@ function(object)
             if(currentCode==object$junctions[[k]]$label)
             {
               outflow<-apply(object$junctions[[k]]$inflow,1,sum,na.rm=TRUE)
-              object$junctions[[k]]$outflow<-outflow
+              object$junctions[[k]]$outflow[,1]<-outflow
               downstreamCode<-labelMat[2,idUpstream[n]]
               if(is.na(downstreamCode))
               {
@@ -196,14 +190,17 @@ function(object)
               transformParams<-object$subbasins[[l]]$transformParams
               lossParams            <-object$subbasins[[l]]$lossParams
               BFSParams             <-object$subbasins[[l]]$BFSParams
-              BFSParams$timeInterval<- simulation[1]
-              exRainfall            <-loss(precipitation,lossParams,simulation,lossMethod)
-              transResault          <-transform(exRainfall,transformParams,Area,simulation,UH,transformMethod)
+              abstractionParams     <-object$subbasins[[l]]$abstractionParams
+              BFSParams$timeInterval <- object$simulation$by
+              lossParams$timeInterval<- object$simulation$by
+              exRainfall_abstraction<-abstraction(precipitation,abstractionParams)
+              exRainfall_loss       <-loss(exRainfall_abstraction,lossMethod,lossParams)
+              transResault          <-transform(exRainfall_loss,transformMethod,transformParams,Area,UH,object$simulation)
               object$subbasins[[l]]$transformResault<-transResault
-              outflow<-transResault$operation[,ncol(transResault$operation)]+inflow
+              outflow<-transResault$operation[,2]+inflow
               BFSResault            <-baseFlowSeparation(outflow,BFSMethod,BFSParams,plot=FALSE)
               object$subbasins[[l]]$BFSResault<-BFSResault
-              object$subbasins[[l]]$outflow<-outflow
+              object$subbasins[[l]]$outflow[,1]<-outflow
               downstreamCode<-labelMat[2,idUpstream[n]]
               if(is.na(downstreamCode))
               {
@@ -227,9 +224,9 @@ function(object)
               diverted<-ifelse(inflow>capacity,capacity,inflow)
               outflow<-inflow-diverted
               object<-find_and_set(divertTo,diverted,label,object)
-              resault<-data.frame(inflow=object$diversions[[m]]$inflow,diverted,outflow)
+              resault<-data.frame(object$diversions[[m]]$inflow,diverted,outflow)
               object$diversions[[m]]$simResault<-resault
-              object$diversions[[m]]$outflow<-outflow
+              object$diversions[[m]]$outflow[,1]<-outflow
               downstreamCode<-labelMat[2,idUpstream[n]]
               if(is.na(downstreamCode))
               {
@@ -241,7 +238,7 @@ function(object)
           }
         }
     }
-    labelMat<-as.matrix(labelMat[,-idUpstream])
+    labelMat<-as.matrix(labelMat[,-idUpstream,drop=FALSE])
     idUpstream<-which(is.na(match(labelMat[1,],labelMat[2,]))==TRUE)
   }
 }

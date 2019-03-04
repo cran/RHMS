@@ -5,24 +5,30 @@ addObjectToBasin <-function(object,basin)
     if(class(object)=="createReservoir")
     {
       object<-object$operation
-      if(is.na(object$inflow))
+      if(all(is.na(object$inflow)))
       {
-        outflow<-directInflow<-rep(0,basin$operation$simPeriod)
-        object$inflow <-as.data.frame(directInflow)
+        outflow<- data.frame(outflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        lateralInflow<- data.frame(lateralInflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        rownames(outflow)<-basin$operation$simulation$simulationSteps
+        rownames(lateralInflow)<-basin$operation$simulation$simulationSteps
+        object$inflow <-lateralInflow
         object$outflow<-outflow
         basin$operation$reservoirs[[length(basin$operation$reservoirs)+1]]<-object
         return(basin)
       }else{
-        directInflow<-rep(0,basin$operation$simPeriod)
+        lateralInflow<- data.frame(lateralInflow=rep(0,length(basin$operation$simulation$simulationSteps)))
         ts<-c(rep(0,object$delayInflow),object$inflow)
-        if(length(ts)<=length(directInflow))
+        if(length(ts)<=nrow(lateralInflow))
         {
-          directInflow[1:length(ts)]<-ts
+          lateralInflow[1:length(ts),1]<-ts
         }else{
-          directInflow<-ts[1:length(directInflow)]
+          lateralInflow[,1]<-ts[1:nrow(lateralInflow)]
         }
-        object$inflow<-as.data.frame(directInflow)
-        object$outflow<-rep(0,length(directInflow))
+        outflow<- data.frame(outflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        rownames(lateralInflow)<-basin$operation$simulation$simulationSteps
+        rownames(outflow)<-basin$operation$simulation$simulationSteps
+        object$inflow<-lateralInflow
+        object$outflow<-outflow
         basin$operation$reservoirs[[length(basin$operation$reservoirs)+1]]<-object
         return(basin)
       }
@@ -31,24 +37,30 @@ addObjectToBasin <-function(object,basin)
     if(class(object)=="createReach")
     {
       object<-object$operation
-      if(is.na(object$inflow))
+      if(all(is.na(object$inflow)))
       {
-        outflow<-directInflow<-rep(0,basin$operation$simPeriod)
-        object$inflow <-as.data.frame(directInflow)
+        outflow<- data.frame(outflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        lateralInflow<- data.frame(lateralInflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        rownames(outflow)<-basin$operation$simulation$simulationSteps
+        rownames(lateralInflow)<-basin$operation$simulation$simulationSteps
+        object$inflow <-lateralInflow
         object$outflow<-outflow
         basin$operation$reachs[[length(basin$operation$reachs)+1]]<-object
         return(basin)
       }else{
-        directInflow<-rep(0,basin$operation$simPeriod)
+        lateralInflow<- data.frame(lateralInflow=rep(0,length(basin$operation$simulation$simulationSteps)))
         ts<-c(rep(0,object$delayInflow),object$inflow)
-        if(length(ts)<=length(directInflow))
+        if(length(ts)<=nrow(lateralInflow))
         {
-          directInflow[1:length(ts)]<-ts
+          lateralInflow[1:length(ts),1]<-ts
         }else{
-          directInflow<-ts[1:length(directInflow)]
+          lateralInflow[,1]<-ts[1:nrow(lateralInflow)]
         }
-        object$inflow<-as.data.frame(directInflow)
-        object$outflow<-rep(0,length(directInflow))
+        outflow<- data.frame(outflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        rownames(lateralInflow)<-basin$operation$simulation$simulationSteps
+        rownames(outflow)<-basin$operation$simulation$simulationSteps
+        object$inflow<-lateralInflow
+        object$outflow<-outflow
         basin$operation$reachs[[length(basin$operation$reachs)+1]]<-object
         return(basin)
       }
@@ -57,24 +69,30 @@ addObjectToBasin <-function(object,basin)
     if(class(object)=="createSubbasin")
     {
       object<-object$operation
-      if(is.na(object$inflow))
+      if(all(is.na(object$inflow)))
       {
-        outflow<-directInflow<-rep(0,basin$operation$simPeriod)
-        object$inflow <-as.data.frame(directInflow)
+        outflow<- data.frame(outflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        lateralInflow<- data.frame(lateralInflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        rownames(outflow)<-basin$operation$simulation$simulationSteps
+        rownames(lateralInflow)<-basin$operation$simulation$simulationSteps
+        object$inflow <-lateralInflow
         object$outflow<-outflow
         basin$operation$subbasins[[length(basin$operation$subbasins)+1]]<-object
         return(basin)
       }else{
-        directInflow<-rep(0,basin$operation$simPeriod)
+        lateralInflow<- data.frame(lateralInflow=rep(0,length(basin$operation$simulation$simulationSteps)))
         ts<-c(rep(0,object$delayInflow),object$inflow)
-        if(length(ts)<=length(directInflow))
+        if(length(ts)<=nrow(lateralInflow))
         {
-          directInflow[1:length(ts)]<-ts
+          lateralInflow[1:length(ts),1]<-ts
         }else{
-          directInflow<-ts[1:length(directInflow)]
+          lateralInflow[,1]<-ts[1:nrow(lateralInflow)]
         }
-        object$inflow<-as.data.frame(directInflow)
-        object$outflow<-rep(0,length(directInflow))
+        outflow<- data.frame(outflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        rownames(lateralInflow)<-basin$operation$simulation$simulationSteps
+        rownames(outflow)<-basin$operation$simulation$simulationSteps
+        object$inflow<-lateralInflow
+        object$outflow<-outflow
         basin$operation$subbasins[[length(basin$operation$subbasins)+1]]<-object
         return(basin)
       }
@@ -83,24 +101,30 @@ addObjectToBasin <-function(object,basin)
     if(class(object)=="createJunction")
     {
       object<-object$operation
-      if(is.na(object$inflow))
+      if(all(is.na(object$inflow)))
       {
-        outflow<-directInflow<-rep(0,basin$operation$simPeriod)
-        object$inflow <-as.data.frame(directInflow)
+        outflow<- data.frame(outflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        lateralInflow<- data.frame(lateralInflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        rownames(outflow)<-basin$operation$simulation$simulationSteps
+        rownames(lateralInflow)<-basin$operation$simulation$simulationSteps
+        object$inflow <-lateralInflow
         object$outflow<-outflow
         basin$operation$junctions[[length(basin$operation$junctions)+1]]<-object
         return(basin)
       }else{
-        directInflow<-rep(0,basin$operation$simPeriod)
+        lateralInflow<- data.frame(lateralInflow=rep(0,length(basin$operation$simulation$simulationSteps)))
         ts<-c(rep(0,object$delayInflow),object$inflow)
-        if(length(ts)<=length(directInflow))
+        if(length(ts)<=nrow(lateralInflow))
         {
-          directInflow[1:length(ts)]<-ts
+          lateralInflow[1:length(ts),1]<-ts
         }else{
-          directInflow<-ts[1:length(directInflow)]
+          lateralInflow[,1]<-ts[1:nrow(lateralInflow)]
         }
-        object$inflow<-as.data.frame(directInflow)
-        object$outflow<-rep(0,length(directInflow))
+        outflow<- data.frame(outflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        rownames(lateralInflow)<-basin$operation$simulation$simulationSteps
+        rownames(outflow)<-basin$operation$simulation$simulationSteps
+        object$inflow<-lateralInflow
+        object$outflow<-outflow
         basin$operation$junctions[[length(basin$operation$junctions)+1]]<-object
         return(basin)
       }
@@ -109,8 +133,11 @@ addObjectToBasin <-function(object,basin)
     if(class(object)=="createDiversion")
     {
         object<-object$operation
-        outflow<-inflow<-rep(0,basin$operation$simPeriod)
-        object$inflow <-as.data.frame(inflow)
+        outflow<- data.frame(outflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        lateralInflow<- data.frame(lateralInflow=rep(0,length(basin$operation$simulation$simulationSteps)))
+        rownames(outflow)<-basin$operation$simulation$simulationSteps
+        rownames(lateralInflow)<-basin$operation$simulation$simulationSteps
+        object$inflow <-lateralInflow
         object$outflow<-outflow
         basin$operation$diversions[[length(basin$operation$diversions)+1]]<-object
         return(basin)

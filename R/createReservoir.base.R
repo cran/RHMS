@@ -1,14 +1,12 @@
 createReservoir.base <-
-function(name,inflow,ratingCurve,dischargeCurve,initialStorage,capacity,delayInflow,label,downstream)
+function(name,inflow,geometry,initialStorage,delayInflow,downstream)
 {
    reservoir<-list(name=name,
                    inflow=as.matrix(inflow),
-                   ratingCurve=ratingCurve,
-                   dischargeCurve=dischargeCurve,
+                   geometry=geometry,
                    initialStorage=initialStorage,
-                   capacity=capacity,
                    delayInflow=delayInflow,
-                   label=label,
+                   label=runif(1),
                    downstream=downstream)
    return(reservoir)
 }

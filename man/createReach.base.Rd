@@ -9,30 +9,30 @@ instantiates an object from class of \code{createReach}
 \usage{
 \method{createReach}{base}(name,routingMethod,inflow,
                            routingParams,
-                           delayInflow,label,downstream)
+                           delayInflow,downstream)
 }
 \arguments{
   \item{name}{
-a string: the name of reach to be instantiated
+(optional) a string: the name of reach to be instantiated
 }
   \item{routingMethod}{
-a string: the method of channel routing. available types: \code{"muskingum"}, and \code{"muskingumcunge"}
+a string: the method of channel routing. available types: \code{"muskingum"}, and \code{"muskingumcunge"}. default to \code{"muskingum"}
 }
   \item{inflow}{
-a vector (optional): a time series of direct inflow rather than flows comming from upstream (cms)
+(optional): a vector of direct inflow rather than flows comming from upstream (cms)
 }
   \item{routingParams}{
-a list : parameters associated to the \code{routingMethod}: \code{k} and \code{x} for \code{"muskingum"}, \code{bedWith} (m),
-\code{sideSlope} (m/m), \code{channelSlope} (m/m), \code{manningRoughness}, \code{riverLength} (Km) for \code{"muskingumcunge"}
-}
+   a list : parameters associated to the \code{routingMethod}:
+      \itemize{
+        \item \code{k} and \code{x} for \code{"muskingum"},
+        \item \code{bedWith} (m), \code{sideSlope} (m/m), \code{channelSlope} (m/m), \code{manningRoughness}, \code{riverLength} (Km) for \code{"muskingumcunge"}
+      }
+  }
   \item{delayInflow}{
-an integer (optional): presenting the time steps to delay direct inflow time series
-}
-  \item{label}{
-an integer: a unique number, as label
+(optional): an integer presenting the time steps to delay direct inflow time series
 }
   \item{downstream}{
-an integer: the code of downstream object 
+(optional) an object from either of classes: \code{createDiversion}, \code{createReservoir}, \code{createSubbasin}, \code{createJunction}, \code{createReach}.
 }
 }
 \value{

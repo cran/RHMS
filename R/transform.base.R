@@ -1,58 +1,39 @@
 transform.base <-
-function(rainfall,transformParams,Area,simulation,UH,transformMethod)
+function(rainfall,transformMethod,transformParams,Area,UH,simulation)
 {
-   if(class(rainfall)=="loss")
+   exRainfall<-rainfall
+   if(length(exRainfall)>length(simulation$simulationSteps))
    {
-      exRainfall<-rainfall$operation[,3]
-   }else{
-      exRainfall<-rainfall
+      exRainfall<-c(exRainfall[1:length(simulation$simulationSteps)])
    }
-   if(is.na(simulation[2])){simulation[2]<-length(exRainfall)}
+   if(length(exRainfall)<length(simulation$simulationSteps))
+   {
+      exR<-rep(0,length(simulation$simulationSteps))
+      exR[1:length(exRainfall)]<-exRainfall
+      exRainfall<-exR
+   }
+
    if(transformMethod=="SCS")
    {
       t_by_tp<-c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7)
       q_by_qp<-c(0,0.04,0.105,0.2,0.32,0.46,0.64,0.82,0.93,0.985,1,0.995,0.99,0.97,0.945,0.905,0.855,0.8,0.74,0.68,0.62,0.56,0.5,0.44,0.38,0.32,0.27,0.22,0.18,0.15,0.13,0.11,0.09,0.075,0.06,0.04,0.02,0)
       Tlag<-transformParams$Tlag
-      tp<-length(exRainfall)*simulation[1]/3600/2+Tlag
+      tp<-length(rainfall)*simulation$by/3600/2+Tlag
       qp<-0.208*Area/tp
       SCS_UH<-data.frame(t=tp*t_by_tp,q=qp*q_by_qp)
-      SCS_UH<-as.data.frame(approx(SCS_UH,xout=0:(simulation[1]*(simulation[2]-1)/3600)))
+      SCS_UH<-as.data.frame(approx(SCS_UH,xout=0:(simulation$by*(length(simulation$simulationSteps)-1)/3600)))
       SCS_UH[which(is.na(SCS_UH[,2])),2]<-0
-      if(simulation[2]>nrow(SCS_UH))
+      if(length(simulation$simulationSteps)>nrow(SCS_UH))
       {
-         extra<-simulation[2]-nrow(SCS_UH)
+         extra<-length(simulation$simulationSteps)-nrow(SCS_UH)
          SCS_UH<-rbind(SCS_UH,data.frame(x=48.1+1:extra*1.3,y=rep(0,extra)))
       }
-      if(simulation[2]<nrow(SCS_UH))
+      if(length(simulation$simulationSteps)<nrow(SCS_UH))
       {
-         less<-nrow(SCS_UH)-simulation[2]
-         SCS_UH<-SCS_UH[1:less,]
+         SCS_UH<-SCS_UH[1:length(simulation$simulationSteps),]
       }
 
       Hydrograph<-rep(NA,nrow(SCS_UH))
-      if(length(exRainfall)>simulation[2])
-      {
-         exRainfall<-c(exRainfall[1:simulation[2]])
-      }
-      if(length(exRainfall)<simulation[2])
-      {
-         exR<-rep(0,simulation[2])
-         exR[1:length(exRainfall)]<-exRainfall
-         exRainfall<-exR
-      }
-      if(class(rainfall)=="loss")
-      {
-         if(length(rainfall$operation[,1])>simulation[2])
-         {
-            Rainfall<-c(rainfall$operation[1:simulation[2],1])
-         }
-         if(length(rainfall$operation[,1])<simulation[2])
-         {
-            Rainfall<-rep(0,simulation[2])
-            Rainfall[1:length(rainfall$operation[,1])]<-rainfall$operation[,1]
-         }
-         Losses<-Rainfall-exRainfall
-      }
       q<-0
       for(i in 1:nrow(SCS_UH))
       {
@@ -63,25 +44,24 @@ function(rainfall,transformParams,Area,simulation,UH,transformMethod)
          Hydrograph[i]<-q
          q<-0
       }
+
       exRainfallVolume<-sum(exRainfall)/1000*Area
-      HydrographVolume<-sum(Hydrograph*simulation[1])/1000000
+      HydrographVolume<-sum(Hydrograph*simulation$by)/1000000
       if(exRainfallVolume<HydrographVolume)
       {
          dif<-HydrographVolume-exRainfallVolume
-         Hydrograph<-Hydrograph-Hydrograph/sum(Hydrograph)*dif*1000/3.6
+         HydrographV<-Hydrograph*simulation$by/1000000
+         Hydrograph<-(HydrographV-dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
       }
       if(exRainfallVolume>HydrographVolume)
       {
          dif<-exRainfallVolume-HydrographVolume
-         Hydrograph<-Hydrograph+Hydrograph/sum(Hydrograph)*dif*1000/3.6
+         HydrographV<-Hydrograph*simulation$by/1000000
+         Hydrograph<-(HydrographV+dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
       }
       Hydrograph[which(Hydrograph<0)]<-0
-      if(class(rainfall)=="loss")
-      {
-         resault<-cbind(Rainfall,Losses,exRainfall,Hydrograph)
-      }else{
-         resault<-cbind(exRainfall,Hydrograph)
-      }
+      resault<-data.frame(rainfall=exRainfall,hydrograph=Hydrograph)
+      rownames(resault)<-simulation$simulationSteps
       return(resault)
    }
 
@@ -91,46 +71,23 @@ function(rainfall,transformParams,Area,simulation,UH,transformMethod)
       t<-userUH_Ordinates[,1]
       q<-userUH_Ordinates[,2]
       smoothed <- loess(q~t)
-      t <- seq(0,max(t), simulation[1]/3600)
+      t <- seq(0,max(t), simulation$by/3600)
       q<-predict(smoothed,t)
       q[which(q<0)]<-0
       q[which(is.na(q))]<-0
       user_UH<-data.frame(t,q)
-      if(simulation[2]>nrow(user_UH))
+      if(length(simulation$simulationSteps)>nrow(user_UH))
       {
-         extra<-simulation[2]-nrow(user_UH)
-         user_UH<-rbind(user_UH,data.frame(t=((nrow(user_UH)+1):simulation[2])*simulation[1]/3600,q=rep(0,extra)))
+         extra<-length(simulation$simulationSteps)-nrow(user_UH)
+         user_UH<-rbind(user_UH,data.frame(t=((nrow(user_UH)+1):length(simulation$simulationSteps))*simulation$by/3600,q=rep(0,extra)))
       }
-      if(simulation[2]<nrow(user_UH))
+      if(length(simulation$simulationSteps)<nrow(user_UH))
       {
-         less<-nrow(user_UH)-simulation[2]
+         less<-nrow(user_UH)-length(simulation$simulationSteps)
          user_UH<-user_UH[1:(nrow(user_UH)-less),]
       }
 
       Hydrograph<-rep(NA,nrow(user_UH))
-      if(length(exRainfall)>simulation[2])
-      {
-         exRainfall<-c(exRainfall[1:simulation[2]])
-      }
-      if(length(exRainfall)<simulation[2])
-      {
-         exR<-rep(0,simulation[2])
-         exR[1:length(exRainfall)]<-exRainfall
-         exRainfall<-exR
-      }
-      if(class(rainfall)=="loss")
-      {
-         if(length(rainfall$operation[,1])>simulation[2])
-         {
-            Rainfall<-c(rainfall$operation[1:simulation[2],1])
-         }
-         if(length(rainfall$operation[,1])<simulation[2])
-         {
-            Rainfall<-rep(0,simulation[2])
-            Rainfall[1:length(rainfall$operation[,1])]<-rainfall$operation[,1]
-         }
-         Losses<-Rainfall-exRainfall
-      }
       q<-0
       for(i in 1:nrow(user_UH))
       {
@@ -141,26 +98,24 @@ function(rainfall,transformParams,Area,simulation,UH,transformMethod)
          Hydrograph[i]<-q
          q<-0
       }
-      (exRainfallVolume<-sum(exRainfall)/1000*Area)
-      (HydrographVolume<-sum(Hydrograph*simulation[1])/1000000)
+      exRainfallVolume<-sum(exRainfall)/1000*Area
+      HydrographVolume<-sum(Hydrograph*simulation$by)/1000000
       if(exRainfallVolume<HydrographVolume)
       {
          dif<-HydrographVolume-exRainfallVolume
-         Hydrograph<-Hydrograph-Hydrograph/sum(Hydrograph)*dif*1000/3.6
+         HydrographV<-Hydrograph*simulation$by/1000000
+         Hydrograph<-(HydrographV-dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
       }
       if(exRainfallVolume>HydrographVolume)
       {
          dif<-exRainfallVolume-HydrographVolume
-         Hydrograph<-Hydrograph+Hydrograph/sum(Hydrograph)*dif*1000/3.6
+         HydrographV<-Hydrograph*simulation$by/1000000
+         Hydrograph<-(HydrographV+dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
       }
 
       Hydrograph[which(Hydrograph<0)]<-0
-      if(class(rainfall)=="loss")
-      {
-         resault<-cbind(Rainfall,Losses,exRainfall,Hydrograph)
-      }else{
-         resault<-cbind(exRainfall,Hydrograph)
-      }
+      resault<-data.frame(rainfall=exRainfall,hydrograph=Hydrograph)
+      rownames(resault)<-simulation$simulationSteps
       return(resault)
    }
 
@@ -170,7 +125,7 @@ function(rainfall,transformParams,Area,simulation,UH,transformMethod)
       Cp<-transformParams$Cp
       L <-transformParams$L
       Lc<-transformParams$Lc
-      TR<-length(exRainfall)*simulation[1]/3600
+      TR<-length(rainfall)*simulation$by/3600
 
       Tl<-Ct*(L*Lc)^0.3
       TD<-Tl/5.5
@@ -192,45 +147,22 @@ function(rainfall,transformParams,Area,simulation,UH,transformMethod)
       t<-SnyderUH_Ordinates[,1]
       q<-SnyderUH_Ordinates[,2]
       smoothed <- loess(q~t)
-      t <- seq(0,max(t), simulation[1]/3600)
+      t <- seq(0,max(t), simulation$by/3600)
       q<-predict(smoothed,t)
       q[which(q<0)]<-0
       Snyder_UH<-data.frame(t,q)
-      if(simulation[2]>nrow(Snyder_UH))
+      if(length(simulation$simulationSteps)>nrow(Snyder_UH))
       {
-         extra<-simulation[2]-nrow(Snyder_UH)
-         Snyder_UH<-rbind(Snyder_UH,data.frame(t=((nrow(Snyder_UH)+1):simulation[2])*simulation[1]/3600,q=rep(0,extra)))
+         extra<-length(simulation$simulationSteps)-nrow(Snyder_UH)
+         Snyder_UH<-rbind(Snyder_UH,data.frame(t=((nrow(Snyder_UH)+1):length(simulation$simulationSteps))*simulation$by/3600,q=rep(0,extra)))
       }
-      if(simulation[2]<nrow(Snyder_UH))
+      if(length(simulation$simulationSteps)<nrow(Snyder_UH))
       {
-         less<-nrow(Snyder_UH)-simulation[2]
+         less<-nrow(Snyder_UH)-length(simulation$simulationSteps)
          Snyder_UH<-Snyder_UH[1:(nrow(Snyder_UH)-less),]
       }
 
       Hydrograph<-rep(NA,nrow(Snyder_UH))
-      if(length(exRainfall)>simulation[2])
-      {
-         exRainfall<-c(exRainfall[1:simulation[2]])
-      }
-      if(length(exRainfall)<simulation[2])
-      {
-         exR<-rep(0,simulation[2])
-         exR[1:length(exRainfall)]<-exRainfall
-         exRainfall<-exR
-      }
-      if(class(rainfall)=="loss")
-      {
-         if(length(rainfall$operation[,1])>simulation[2])
-         {
-            Rainfall<-c(rainfall$operation[1:simulation[2],1])
-         }
-         if(length(rainfall$operation[,1])<simulation[2])
-         {
-            Rainfall<-rep(0,simulation[2])
-            Rainfall[1:length(rainfall$operation[,1])]<-rainfall$operation[,1]
-         }
-         Losses<-Rainfall-exRainfall
-      }
       q<-0
       for(i in 1:nrow(Snyder_UH))
       {
@@ -242,25 +174,23 @@ function(rainfall,transformParams,Area,simulation,UH,transformMethod)
          q<-0
       }
       exRainfallVolume<-sum(exRainfall)/1000*Area
-      HydrographVolume<-sum(Hydrograph*simulation[1])/1000000
+      HydrographVolume<-sum(Hydrograph*simulation$by)/1000000
       if(exRainfallVolume<HydrographVolume)
       {
          dif<-HydrographVolume-exRainfallVolume
-         Hydrograph<-Hydrograph-Hydrograph/sum(Hydrograph)*dif*1000/3.6
+         HydrographV<-Hydrograph*simulation$by/1000000
+         Hydrograph<-(HydrographV-dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
       }
       if(exRainfallVolume>HydrographVolume)
       {
          dif<-exRainfallVolume-HydrographVolume
-         Hydrograph<-Hydrograph+Hydrograph/sum(Hydrograph)*dif*1000/3.6
+         HydrographV<-Hydrograph*simulation$by/1000000
+         Hydrograph<-(HydrographV+dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
       }
 
       Hydrograph[which(Hydrograph<0)]<-0
-      if(class(rainfall)=="loss")
-      {
-         resault<-cbind(Rainfall,Losses,exRainfall,Hydrograph)
-      }else{
-         resault<-cbind(exRainfall,Hydrograph)
-      }
+      resault<-data.frame(rainfall=exRainfall,hydrograph=Hydrograph)
+      rownames(resault)<-simulation$simulationSteps
       return(resault)
   }
 }

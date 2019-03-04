@@ -1,2 +1,2 @@
 createBasin <-
-function(name, simPeriod, interval) UseMethod("createBasin")
+function(name, simulation) UseMethod("createBasin")

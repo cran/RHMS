@@ -1,2 +1,2 @@
 createDiversion <-
-function(name,label,downstream,divertTo,capacity) UseMethod("createDiversion")
+function(name,downstream,divertTo,capacity) UseMethod("createDiversion")

@@ -1,9 +1,13 @@
 createJunction.default <-
-function(name="Unttitled",downstream=NA,label,inflow=NA,delayInflow=1)
+function(name="Unttitled",downstream=NA,inflow=NA,delayInflow=1)
 {
-   if(missing(label)){stop("label code is not specified!")}
+   if(!any(class(downstream)==c('createJunction','createDiversion','createReservoir','createSubbasin','createReach')))
+   {
+      if(!is.na(downstream)) stop('Bad object specified as downstream!')
+   }
+   if(any(class(downstream)==c('createJunction','createDiversion','createReservoir','createSubbasin','createReach'))) downstream<-downstream$operation$label
    result<-list()
-   operation<-createJunction.base(name,downstream,label,inflow,delayInflow)
+   operation<-createJunction.base(name,downstream,inflow,delayInflow)
    result$operation<-operation
    result$call<-match.call()
    class(result)<-"createJunction"

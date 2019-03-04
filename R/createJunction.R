@@ -1,2 +1,2 @@
 createJunction <-
-function(name,downstream,label,inflow,delayInflow) UseMethod("createJunction")
+function(name,downstream,inflow,delayInflow) UseMethod("createJunction")

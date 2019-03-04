@@ -24,10 +24,10 @@ function(object,...)
         rownames(resault)<-c("Volumes (MCM)","Peak (cms)")
         for(i in 1:ncol(inflow))
         {
-          resault[1,i]<-sum(inflow[,i]*object$interval,na.rm=TRUE)/10^6
+          resault[1,i]<-sum(inflow[,i]*object$simulation$by,na.rm=TRUE)/10^6
           resault[2,i]<-max(inflow[,i],na.rm=TRUE)
         }
-        resault[1,i+1]<-sum(outflow*object$interval,na.rm=TRUE)/10^6
+        resault[1,i+1]<-sum(outflow*object$simulation$by,na.rm=TRUE)/10^6
         resault[2,i+1]<-max(outflow,na.rm=TRUE)
         print(resault)
     }
@@ -45,10 +45,10 @@ function(object,...)
         rownames(resault)<-c("Volumes (MCM)","Peak (cms)")
         for(i in 1:ncol(inflow))
         {
-          resault[1,i]<-sum(inflow[,i]*object$interval,na.rm=TRUE)/10^6
+          resault[1,i]<-sum(inflow[,i]*object$simulation$by,na.rm=TRUE)/10^6
           resault[2,i]<-max(inflow[,i],na.rm=TRUE)
         }
-        resault[1,i+1]<-sum(outflow*object$interval,na.rm=TRUE)/10^6
+        resault[1,i+1]<-sum(outflow*object$simulation$by,na.rm=TRUE)/10^6
         resault[2,i+1]<-max(outflow,na.rm=TRUE)
         print(resault)
     }
@@ -66,10 +66,10 @@ function(object,...)
         rownames(resault)<-c("Volumes (MCM)","Peak (cms)")
         for(i in 1:ncol(inflow))
         {
-          resault[1,i]<-sum(inflow[,i]*object$interval,na.rm=TRUE)/10^6
+          resault[1,i]<-sum(inflow[,i]*object$simulation$by,na.rm=TRUE)/10^6
           resault[2,i]<-max(inflow[,i],na.rm=TRUE)
         }
-        resault[1,i+1]<-sum(outflow*object$interval,na.rm=TRUE)/10^6
+        resault[1,i+1]<-sum(outflow*object$simulation$by,na.rm=TRUE)/10^6
         resault[2,i+1]<-max(outflow,na.rm=TRUE)
         print(resault)
     }
@@ -87,10 +87,10 @@ function(object,...)
           rownames(resault)<-c("Volumes (MCM)","Peak (cms)")
           for(i in 1:ncol(inflow))
           {
-            resault[1,i]<-sum(inflow[,i]*object$interval,na.rm=TRUE)/10^6
+            resault[1,i]<-sum(inflow[,i]*object$simulation$by,na.rm=TRUE)/10^6
             resault[2,i]<-max(inflow[,i],na.rm=TRUE)
           }
-          resault[1,i+1]<-sum(outflow*object$interval,na.rm=TRUE)/10^6
+          resault[1,i+1]<-sum(outflow*object$simulation$by,na.rm=TRUE)/10^6
           resault[2,i+1]<-max(outflow,na.rm=TRUE)
           print(resault)
       }
@@ -108,10 +108,10 @@ function(object,...)
           rownames(resault)<-c("Volumes (MCM)","Peak (cms)")
           for(i in 1:ncol(inflow))
           {
-            resault[1,i]<-sum(inflow[,i]*object$interval,na.rm=TRUE)/10^6
+            resault[1,i]<-sum(inflow[,i]*object$simulation$by,na.rm=TRUE)/10^6
             resault[2,i]<-max(inflow[,i],na.rm=TRUE)
           }
-          resault[1,i+1]<-sum(outflow*object$interval,na.rm=TRUE)/10^6
+          resault[1,i+1]<-sum(outflow*object$simulation$by,na.rm=TRUE)/10^6
           resault[2,i+1]<-max(outflow,na.rm=TRUE)
           print(resault)
       }

@@ -1,18 +1,19 @@
 createBasin.base <-
-function(name,simPeriod,interval)
+function(name,simulation)
 {
    reservoirs        <-list()
    reachs            <-list()
    junctions         <-list()
    subbasins         <-list()
    diversions        <-list()
-   dateAndTimeCreated<-Sys.time()
-   basin<-list(name              =name              ,
-               reservoirs        =reservoirs        ,
-               reachs            =reachs            ,
-               junctions         =junctions         ,
-               dateAndTimeCreated=dateAndTimeCreated,
-               simPeriod         =simPeriod         ,
-               interval          =interval)
+   timeOfCreation<-Sys.time()
+   basin<-list(name              =name          ,
+               reservoirs        =reservoirs    ,
+               reachs            =reachs        ,
+               junctions         =junctions     ,
+               subbasins         =subbasins     ,
+               diversions        =diversions    ,
+               simulation        =simulation    ,
+               timeOfCreation    =timeOfCreation)
    return(basin)
 }

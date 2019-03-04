@@ -1,1 +1,1 @@
-loss <-function(precipitation,lossParams,simulation,lossMethod) UseMethod("loss")
+loss <-function(precipitation,lossMethod,lossParams) UseMethod("loss")

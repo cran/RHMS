@@ -7,20 +7,17 @@ default function for class of \code{createDiversion}
 instantiates an object from class of \code{createDiversion}
 }
 \usage{
-\method{createDiversion}{default}(name="Unttitled",label,downstream=NA,divertTo,capacity)
+\method{createDiversion}{default}(name="Unttitled",downstream=NA,divertTo,capacity)
 }
 \arguments{
   \item{name}{
-a string: the name of diversion to be instantiated
+(optional) a string: the name of diversion to be instantiated
 }
   \item{downstream}{
-an integer: the code of downstream object 
-}
-  \item{label}{
-an integer: a unique number, as label
+(optional) an object from either of classes: \code{createDiversion}, \code{createReservoir}, \code{createSubbasin}, \code{createJunction}, \code{createReach}.
 }
   \item{divertTo}{
-an integer: the code of an object at the diversion outlet
+an object from either of classes: \code{createDiversion}, \code{createReservoir}, \code{createSubbasin}, \code{createJunction}, \code{createReach}.
 }
   \item{capacity}{
 diversion capacity (cms)

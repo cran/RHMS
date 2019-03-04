@@ -1,1 +1,1 @@
-transform <-function(rainfall,transformParams,Area,simulation,UH,transformMethod) UseMethod('transform')
+transform <-function(rainfall,transformMethod,transformParams,Area,UH,simulation) UseMethod('transform')

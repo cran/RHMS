@@ -1,1 +1,1 @@
-reservoirRouting <-function(inflow,ratingCurve,dischargeCurve,initialStorage,capacity,simulation) UseMethod("reservoirRouting")
+reservoirRouting <-function(inflow,geometry,initialStorage,simulation) UseMethod("reservoirRouting")

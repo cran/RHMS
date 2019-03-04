@@ -7,18 +7,17 @@ default function for class of \code{createBasin}
 instantiates an object from class of \code{createBasin}
 }
 \usage{
-\method{createBasin}{default}(name = "Untittled", simPeriod, interval)
+\method{createBasin}{default}(name = "Untittled", simulation=list(start=NULL,end=NULL,by=NULL))
 }
 \arguments{
-  \item{name}{
-a string: a name for the basin
-}
-  \item{simPeriod}{
-the simulation period in seconds
-}
-  \item{interval}{
-number of simulation time steps
-}
+  \item{name}{a string: a name for the basin}
+  \item{simulation}{a list of simulation time and dates as below:
+     \itemize{
+         \item \code{start}: the date which simulation starts, must be in \code{'YYYY-MM-DD'} format
+         \item \code{start}: the date which simulation ends, must be in \code{'YYYY-MM-DD'} format
+         \item \code{by}: the interval of each steps in seconds
+     }
+  }
 }
 \value{
 a list: an object from class of \code{creatBasin}

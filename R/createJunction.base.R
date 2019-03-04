@@ -1,6 +1,6 @@
 createJunction.base <-
-function(name,downstream,label,inflow,delayInflow)
+function(name,downstream,inflow,delayInflow)
 {
-   junction<-list(name=name,downstream=downstream,label=label,inflow=inflow,delayInflow=delayInflow)
+   junction<-list(name=name,downstream=downstream,label=runif(1),inflow=inflow,delayInflow=delayInflow)
    return(junction)
 }

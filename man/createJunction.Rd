@@ -7,24 +7,21 @@ creates a junction object
 instantiates an object from class of \code{createJunction}
 }
 \usage{
-createJunction(name, downstream,label, 
+createJunction(name, downstream,
                inflow, delayInflow)
 }
 \arguments{
   \item{name}{
-a string: the name of junction to be instantiated
+(optional) a string: the name of junction to be instantiated
 }
   \item{downstream}{
-an integer: the downstream object code
-}
-  \item{label}{
-an integer: a unique number, as label
+(optional) an object from either of classes: \code{createDiversion}, \code{createReservoir}, \code{createSubbasin}, \code{createJunction}, \code{createReach}.
 }
   \item{inflow}{
-a vector (optional): a time series of direct inflow rather than flows comming from upstream (cms)
+(optional): a vector of direct inflow rather than flows comming from upstream (cms)
 }
   \item{delayInflow}{
-an integer (optional): presenting the time steps to delay direct inflow time series
+(optional): an integer presenting the time steps to delay direct inflow time series
 }
 }
 \value{
