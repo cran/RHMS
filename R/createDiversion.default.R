@@ -1,7 +1,6 @@
 createDiversion.default <-
-function(name="Unttitled",downstream=NA,divertTo,capacity)
+function(name="Unttitled",downstream=NA,divertTo=NA,capacity)
 {
-   if(missing(divertTo)){stop("divertTo code is not specified!")}
    if(missing(capacity)){stop("diversion capacity rate is not specified!")}
    if(!any(class(downstream)==c('createJunction','createDiversion','createReservoir','createSubbasin','createReach')))
    {
@@ -10,9 +9,10 @@ function(name="Unttitled",downstream=NA,divertTo,capacity)
    if(any(class(downstream)==c('createJunction','createDiversion','createReservoir','createSubbasin','createReach'))) downstream<-downstream$operation$label
    if(!(any(class(divertTo)==c('createJunction','createDiversion','createReservoir','createSubbasin','createReach'))))
    {
-      stop('Bad object specified as the diversion outlet!')
+      if(!all(is.na(divertTo))) stop('Bad object specified as the diversion outlet!')
+   }else{
+      divertTo<-divertTo$operation$label
    }
-   divertTo<-divertTo$operation$label
    resault<-list()
    operation<-createDiversion.base(name,downstream,divertTo,capacity)
    resault$operation<-operation

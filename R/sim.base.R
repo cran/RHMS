@@ -240,5 +240,6 @@ function(object)
     }
     labelMat<-as.matrix(labelMat[,-idUpstream,drop=FALSE])
     idUpstream<-which(is.na(match(labelMat[1,],labelMat[2,]))==TRUE)
+    labelMat[,idUpstream,drop=FALSE]
   }
 }

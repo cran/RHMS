@@ -1,4 +1,4 @@
-22cd9c486153891a680baaf276c5b7cf *DESCRIPTION
+ed380979a4cc58f4532d0d1c7de405ec *DESCRIPTION
 48775997b14e4508aa0c01565ace2b57 *NAMESPACE
 af989aa196aa1584c962399e35e2b9d6 *R/RHMS-internal.R
 ddaebb36e2452ee029fa1fc1628bedaf *R/abstraction.R
@@ -13,7 +13,7 @@ a40fbea2472b8cde33a1da0419b5c345 *R/baseFlowSeparation.base.R
 5d86fbf6e5d95d6362628e42731e459b *R/createBasin.default.R
 f31a105f6e37b20ac9dc982e0c777669 *R/createDiversion.R
 b15fd8ac36721ac22c92595a5a2e2eb0 *R/createDiversion.base.R
-93eca81400386278c1e64656cf9abb0d *R/createDiversion.default.R
+9dcb7cfb76e2a0da4e25ebd578efa7fe *R/createDiversion.default.R
 47843721b951c0da88184d77be5f812f *R/createJunction.R
 273fcfdf46632a98bbfce32d187d3970 *R/createJunction.base.R
 2033158e2ed3fa902056229a47087e58 *R/createJunction.default.R
@@ -35,10 +35,11 @@ eb0a024936ba6e3b5703ef83db740c14 *R/plot.createBasin.R
 9ab210d5d69178c93f71ffd2a2cfe34c *R/reachRouting.base.R
 23696051e9c31e6a7ab27596d40ff243 *R/reachRouting.default.R
 60bf556e4e44060f84ef6fb7efa6043e *R/reservoirRouting.R
-7ba2213a810c7a50715c54b0f82853db *R/reservoirRouting.base.R
+686887900755b59b57510850f78b3629 *R/reservoirRouting.base.R
 c439feec6ef6446b7e6505002982a486 *R/reservoirRouting.default.R
+a66a4bb0e164e2060572303963798325 *R/set.as.R
 bc8f8bfb7d54535e29485f6f44932d5a *R/sim.R
-839536ab612d7d8b6f9779a163d9be7c *R/sim.base.R
+d5f9e6ab9f7a1d595d1faaed296683e6 *R/sim.base.R
 b8c5e842ba67ee61b12cc34e474b3472 *R/sim.default.R
 a6a500035c2ac708a58687f07335736c *R/summary.sim.R
 5c0ccb423dcd68233c2220e36cf481dd *R/transform.R
@@ -46,12 +47,12 @@ f5cb58c363910be75b05d12591f2e393 *R/transform.base.R
 bd5a9a94dacac9b4bfb65299cb3fe003 *R/transform.default.R
 fda640821d8595096a68c638f4a11685 *R/tune.R
 190feeda8debf99cd1cf54431bccb966 *data/Zaab.RData
-b8729bea83d93efe1a83bb640849b448 *man/RHMS-package.Rd
+5e8394c0addbf82bc8b600098d966efa *man/RHMS-package.Rd
 b6ff4649e8d217af67114b85cabdbafa *man/Zaab.Rd
 b4486175a97cc4c74238f87069484e12 *man/abstraction.Rd
 ad348683627c952042305bc5be8ad05e *man/abstraction.base.Rd
 5734ec000bde8bad96c7519ea50f4f4f *man/abstraction.default.Rd
-128f0ba11f29ab0bbdd19156f8f2b9ca *man/addObjectToBasin.Rd
+4a5f769ede94ce990f02e8d6651832fd *man/addObjectToBasin.Rd
 a3d75100841a2b5262e242b612ffcdbe *man/baseFlowSeparation.Rd
 03ce32679954a487a0cd26e97b4d8303 *man/baseFlowSeparation.base.Rd
 816f4d7a99f30036b20bd595b1766852 *man/baseFlowSeparation.default.Rd
@@ -84,6 +85,7 @@ e559856416352097ec5faf719db1b88f *man/reachRouting.base.Rd
 cd37740dda20f59f36dc3e17e74c9203 *man/reservoirRouting.Rd
 28eb3972c3a8cd8b701a9cb6663835e0 *man/reservoirRouting.base.Rd
 2864c6405862c7db242923957010a9d0 *man/reservoirRouting.default.Rd
+436e4e9da993702dc0d0665e4a0f2e8c *man/set.as.Rd
 d6a3462fb29dbae53c829a65a2c08f20 *man/sim.Rd
 9d22f3a35f3900b49ccba87deae0ca69 *man/sim.base.Rd
 563048d195cc9c3a7b195afb2601e9ff *man/sim.default.Rd

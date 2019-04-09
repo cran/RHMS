@@ -12,8 +12,8 @@ The RHMS package provides tools to R users for simulation of hydrologic events. 
 \tabular{ll}{
 Package: \tab RHMS\cr
 Type: \tab Package\cr
-Version: \tab 1.5\cr
-Date: \tab 2019-03-03\cr
+Version: \tab 1.6\cr
+Date: \tab 2019-04-07\cr
 License: \tab GPL-3\cr
 }
 the package include three major types of functions as follows:
@@ -26,6 +26,7 @@ the package include three major types of functions as follows:
 \item \code{\link[RHMS]{createReservoir}}.     constructor for reservoirs
 \item \code{\link[RHMS]{createSubbasin}}.      constructor for sub-bains
 \item \code{\link[RHMS]{createDiversion}}.     constructor for diversions
+\item \code{\link[RHMS]{set.as}}.              objects connector
 \item \code{\link[RHMS]{addObjectToBasin}}.    adds objects form mentioned above constructors to a basin inherited from class of \code{createBasin}
 }
 

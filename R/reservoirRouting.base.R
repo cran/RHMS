@@ -9,13 +9,15 @@ function(inflow,geometry,initialStorage,simulation)
    if(is.na(initialStorage)) initialStorage<-capacity
    if(initialStorage<capacity)
    {
-      id<-which(((cumsum(inflow)+initialStorage)>capacity)==TRUE)[1]
-      if(length(id)==0)
+      id<-which(((cumsum(inflow*simulation$by/1000000)+initialStorage)>capacity)==TRUE)[1]
+      if(is.na(id))
       {
-         Q.out<-rep(0,length(inflow))
-         return(Q.out)
+         mat<-as.data.frame(matrix(0,length(simulation$simulationSteps),5))
+         colnames(mat)<-c("I","Im","O","Im-O","G")
+         rownames(mat)<-simulation$simulationSteps
+         return(mat)
       }else{
-         inflow[id]<-sum(inflow[1:id])-(capacity-initialStorage)
+         inflow[id]<-sum(inflow[1:id]*simulation$by/1000000)-(capacity-initialStorage)
          inflow[1:(id-1)]<-0
       }
    }
