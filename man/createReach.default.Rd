@@ -21,7 +21,7 @@ instantiates an object from class of \code{createReach}
 a string: the method of channel routing. available types: \code{"muskingum"}, and \code{"muskingumcunge"}. default to \code{"muskingum"}.
 }
   \item{inflow}{
-(optional): a vector of direct inflow rather than flows comming from upstream (cms)
+(optional): a vector of direct/lateral (cms)
 }
   \item{routingParams}{
    a list : parameters associated to the \code{routingMethod}:
@@ -31,7 +31,7 @@ a string: the method of channel routing. available types: \code{"muskingum"}, an
       }
   }
   \item{delayInflow}{
-(optional): an integer presenting the time steps to delay direct inflow time series
+(optional): an integer presenting the time steps to delay direct/lateral inflow time series
 }
   \item{downstream}{
 (optional) an object from either of classes: \code{createDiversion}, \code{createReservoir}, \code{createSubbasin}, \code{createJunction}, \code{createReach}.

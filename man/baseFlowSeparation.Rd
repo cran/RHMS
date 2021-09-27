@@ -4,7 +4,7 @@
 Parametric methods for separating baseflow
 }
 \description{
-This function calculates baseflow for agiven discharge series, \code{discharge}, using a number of method proposed in \code{BFSMethod}.
+This function calculates baseflow for a given time series, \code{discharge}, using a number of method stated in \code{BFSMethod}.
 }
 \usage{
 baseFlowSeparation(discharge,BFSMethod,BFSParams,plot)

@@ -1,18 +1,41 @@
 transform.base <-
 function(rainfall,transformMethod,transformParams,Area,UH,simulation)
 {
-   exRainfall<-rainfall
-   if(length(exRainfall)>length(simulation$simulationSteps))
+   sr<-smooth.spline(1:length(rainfall),rainfall)$y
+   sr[sr<0]<-0
+   ind_min <- which(diff(sign(diff(c(0, sr)))) == 2)
+   if ((sr[length(sr)] - sr[length(sr) - 1]) < 0) 
    {
-      exRainfall<-c(exRainfall[1:length(simulation$simulationSteps)])
+       ind_min <- c(ind_min, length(sr))
    }
-   if(length(exRainfall)<length(simulation$simulationSteps))
+   if ((sr[1] - sr[2]) < 0)
    {
-      exR<-rep(0,length(simulation$simulationSteps))
-      exR[1:length(exRainfall)]<-exRainfall
-      exRainfall<-exR
+       ind_min <- c(1, ind_min)
    }
+   ind_min<-c(ind_min,1,length(sr))
+   ind_min<-ind_min[!duplicated(ind_min)]
+   ind_min <- ind_min[which(duplicated(ind_min) == FALSE)]
+   nCycles<-length(ind_min)-1
+   cyclesMat<-matrix(NA,3,nCycles)
+   rownames(cyclesMat)<-c("start","end","length")
+   colnames(cyclesMat)<-paste("Cycle",1:nCycles)
+   cyclesMat[1,]<-ind_min[1:nCycles]
+   cyclesMat[2,]<-ind_min[-1]-1
+   cyclesMat[2,nCycles]<-cyclesMat[2,nCycles]+1
+   cyclesMat[3,]<-cyclesMat[2,]-cyclesMat[1,]+1
 
+   exRainfall<-matrix(0,length(simulation$simulationSteps),nCycles)
+   rownames(exRainfall)<-1:nrow(exRainfall)
+   colnames(exRainfall)<-paste("Cycle",1:nCycles)
+   for(i in 1:nCycles)
+   {
+      id1<-cyclesMat[1,i]:cyclesMat[2,i] %in% as.numeric(rownames(exRainfall))
+      names(id1)<-cyclesMat[1,i]:cyclesMat[2,i]
+      id2<-match(names(which(id1)),rownames(exRainfall))
+      id2<-id2[!is.na(id2)]
+      exRainfall[id2,i]<-rainfall[as.numeric(names(which(id1)))]
+   }
+ 
    if(transformMethod=="SCS")
    {
       t_by_tp<-c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7)
@@ -33,36 +56,20 @@ function(rainfall,transformMethod,transformParams,Area,UH,simulation)
          SCS_UH<-SCS_UH[1:length(simulation$simulationSteps),]
       }
 
-      Hydrograph<-rep(NA,nrow(SCS_UH))
+      Hydrograph<-matrix(NA,nrow(SCS_UH),nCycles)
       q<-0
-      for(i in 1:nrow(SCS_UH))
+      for(i in 1:nCycles)
       {
-         for(j in 1:i)
+         for(j in 1:nrow(SCS_UH))
          {
-            q<-q+SCS_UH[j,2]*exRainfall[i-j+1]
+            for(k in 1:j)
+            {
+               q<-q+SCS_UH[k,2]*exRainfall[j-k+1,i]
+            }
+            Hydrograph[j,i]<-q
+            q<-0
          }
-         Hydrograph[i]<-q
-         q<-0
       }
-
-      exRainfallVolume<-sum(exRainfall)/1000*Area
-      HydrographVolume<-sum(Hydrograph*simulation$by)/1000000
-      if(exRainfallVolume<HydrographVolume)
-      {
-         dif<-HydrographVolume-exRainfallVolume
-         HydrographV<-Hydrograph*simulation$by/1000000
-         Hydrograph<-(HydrographV-dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
-      }
-      if(exRainfallVolume>HydrographVolume)
-      {
-         dif<-exRainfallVolume-HydrographVolume
-         HydrographV<-Hydrograph*simulation$by/1000000
-         Hydrograph<-(HydrographV+dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
-      }
-      Hydrograph[which(Hydrograph<0)]<-0
-      resault<-data.frame(rainfall=exRainfall,hydrograph=Hydrograph)
-      rownames(resault)<-simulation$simulationSteps
-      return(resault)
    }
 
    if(transformMethod=="user")
@@ -87,36 +94,20 @@ function(rainfall,transformMethod,transformParams,Area,UH,simulation)
          user_UH<-user_UH[1:(nrow(user_UH)-less),]
       }
 
-      Hydrograph<-rep(NA,nrow(user_UH))
+      Hydrograph<-matrix(NA,nrow(user_UH),nCycles)
       q<-0
-      for(i in 1:nrow(user_UH))
+      for(i in 1:nCycles)
       {
-         for(j in 1:i)
+         for(j in 1:nrow(user_UH))
          {
-            q<-q+user_UH[j,2]*exRainfall[i-j+1]
+            for(k in 1:j)
+            {
+               q<-q+user_UH[k,2]*exRainfall[j-k+1,i]
+            }
+            Hydrograph[j,i]<-q
+            q<-0
          }
-         Hydrograph[i]<-q
-         q<-0
       }
-      exRainfallVolume<-sum(exRainfall)/1000*Area
-      HydrographVolume<-sum(Hydrograph*simulation$by)/1000000
-      if(exRainfallVolume<HydrographVolume)
-      {
-         dif<-HydrographVolume-exRainfallVolume
-         HydrographV<-Hydrograph*simulation$by/1000000
-         Hydrograph<-(HydrographV-dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
-      }
-      if(exRainfallVolume>HydrographVolume)
-      {
-         dif<-exRainfallVolume-HydrographVolume
-         HydrographV<-Hydrograph*simulation$by/1000000
-         Hydrograph<-(HydrographV+dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
-      }
-
-      Hydrograph[which(Hydrograph<0)]<-0
-      resault<-data.frame(rainfall=exRainfall,hydrograph=Hydrograph)
-      rownames(resault)<-simulation$simulationSteps
-      return(resault)
    }
 
    if(transformMethod=="snyder")
@@ -162,35 +153,39 @@ function(rainfall,transformMethod,transformParams,Area,UH,simulation)
          Snyder_UH<-Snyder_UH[1:(nrow(Snyder_UH)-less),]
       }
 
-      Hydrograph<-rep(NA,nrow(Snyder_UH))
+      Hydrograph<-matrix(NA,nrow(Snyder_UH),nCycles)
       q<-0
-      for(i in 1:nrow(Snyder_UH))
+      for(i in 1:nCycles)
       {
-         for(j in 1:i)
+         for(j in 1:nrow(Snyder_UH))
          {
-            q<-q+Snyder_UH[j,2]*exRainfall[i-j+1]
+            for(k in 1:j)
+            {
+               q<-q+Snyder_UH[k,2]*exRainfall[j-k+1,i]
+            }
+            Hydrograph[j,i]<-q
+            q<-0
          }
-         Hydrograph[i]<-q
-         q<-0
       }
-      exRainfallVolume<-sum(exRainfall)/1000*Area
-      HydrographVolume<-sum(Hydrograph*simulation$by)/1000000
-      if(exRainfallVolume<HydrographVolume)
-      {
-         dif<-HydrographVolume-exRainfallVolume
-         HydrographV<-Hydrograph*simulation$by/1000000
-         Hydrograph<-(HydrographV-dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
-      }
-      if(exRainfallVolume>HydrographVolume)
-      {
-         dif<-exRainfallVolume-HydrographVolume
-         HydrographV<-Hydrograph*simulation$by/1000000
-         Hydrograph<-(HydrographV+dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
-      }
-
-      Hydrograph[which(Hydrograph<0)]<-0
-      resault<-data.frame(rainfall=exRainfall,hydrograph=Hydrograph)
-      rownames(resault)<-simulation$simulationSteps
-      return(resault)
-  }
+   }
+   Hydrograph<-apply(Hydrograph,1,sum)
+   Hydrograph[which(Hydrograph<0)]<-0
+   exRainfallVolume<-sum(apply(exRainfall,1,sum))/1000*Area
+   HydrographVolume<-sum(Hydrograph*simulation$by)/1000000
+   if(exRainfallVolume<HydrographVolume)
+   {
+      dif<-HydrographVolume-exRainfallVolume
+      HydrographV<-Hydrograph*simulation$by/1000000
+      Hydrograph<-(HydrographV-dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
+   }
+   if(exRainfallVolume>HydrographVolume)
+   {
+      dif<-exRainfallVolume-HydrographVolume
+      HydrographV<-Hydrograph*simulation$by/1000000
+      Hydrograph<-(HydrographV+dif*(HydrographV/sum(HydrographV)))*1000000/simulation$by
+   }
+   Hydrograph[which(Hydrograph<0)]<-0
+   resault<-data.frame(rainfall=apply(exRainfall,1,sum),hydrograph=Hydrograph)
+   rownames(resault)<-simulation$simulationSteps
+   return(resault)
 }

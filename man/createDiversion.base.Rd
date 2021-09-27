@@ -24,7 +24,7 @@ diversion capacity (cms)
 }
 }
 \value{
-a list: an object from class of list instantiated by \code{createDiversion}
+a list: an object from class of \code{createDiversion}
 }
 \seealso{ \code{\link[RHMS]{addObjectToBasin}} }
 \author{

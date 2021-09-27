@@ -4,7 +4,7 @@
 base function for class of \code{reachRouting}
 }
 \description{
-this function provides parametric methods (e.g. \code{"horton"} and \code{"SCS"}) to compute loss and direct runoff depths
+this function provides methods (e.g. \code{"horton"} and \code{"SCS"}) to compute loss and direct runoff depths
 }
 \usage{
 \method{loss}{base}(precipitation,lossMethod,lossParams)

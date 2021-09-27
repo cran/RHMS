@@ -1,7 +1,7 @@
 exportPattern("^[[:alpha:]]+")
 importFrom("grDevices", "getGraphicsEvent", "graphics.off", "dev.off", "devAskNewPage")
 importFrom("graphics", "plot","lines","hist","legend","par","axis")
-importFrom("stats","loess","predict","runif","uniroot","filter","approx","lm", "cor", "ecdf")
+importFrom("stats","loess","predict","runif","uniroot","filter","approx","lm", "cor", "ecdf","smooth.spline")
 importFrom("pso", "psoptim")
 importFrom("Hmisc", "approxExtrap")
 importFrom("GGally", "ggnet2")

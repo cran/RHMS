@@ -17,7 +17,7 @@ createSubbasin(name,precipitation,
   \item{precipitation}{a vector : a time series of precipitation hytograph (mm)}
   \item{inflow}{(optional): a vector of direct inflow rather than flows comming from upstream (cms)}
   \item{Area}{the area of basin (Km^2)}
-  \item{delayInflow}{(optional): an integer presenting the time steps to delay direct inflow time series}
+  \item{delayInflow}{(optional): an integer presenting the time steps to delay direct/lateral inflow time series}
   \item{downstream}{(optional): an object from either of classes: \code{createDiversion}, \code{createReservoir}, \code{createSubbasin}, \code{createJunction}, \code{createReach}.}
   \item{transformMethod}{a string: the type of transformation method. Available types: \code{"SCS"}, \code{"snyder"}, and \code{"user"} for user defined unit hydrograph. default to \code{"SCS"}}
   \item{lossMethod}{a string: the type of loss method. Available types: \code{"SCS"} and \code{"horton"}}

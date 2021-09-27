@@ -12,7 +12,7 @@ instantiates an object from class of \code{createReservoir}
 }
 \arguments{
   \item{name}{(optional): a string: the name of reservoir to be instantiated}
-  \item{inflow}{(optional) : a vector of direct inflow rather than flows comming from upstream (cms)}
+  \item{inflow}{(optional) : a vector of direct/lateral inflow (cms)}
   \item{geometry}{a list of geometric specifications of the reservoir:
      \itemize{
          \item \code{storageElevationCurve}: a data frame: a data frame at which its first collumn includes height (masl) and second collums presents equivalant volume to the height at first collumn (MCM)
@@ -21,7 +21,7 @@ instantiates an object from class of \code{createReservoir}
      }
   }
   \item{initialStorage}{(optional): the initial storage of reservoir at the first time step of simulation (MCM)}
-  \item{delayInflow}{(optional): an integer presenting the time steps to delay direct inflow time series}
+  \item{delayInflow}{(optional): an integer presenting the time steps to delay direct/lateral inflow time series}
   \item{downstream}{(optional): an object from either of classes: \code{createDiversion}, \code{createReservoir}, \code{createSubbasin}, \code{createJunction}, \code{createReach}.}
 }
 \value{

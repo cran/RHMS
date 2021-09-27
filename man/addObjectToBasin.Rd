@@ -4,15 +4,15 @@
 adds an object to basin
 }
 \description{
-adds an object inherited from a hydrologic feature class to a \code{basin} instantiated from class of \code{createBasin}.
+adds an object inherited from either of \code{RHMS} package constructors to an object instantiated by class of \code{createBasin}.
 }
 \usage{
 addObjectToBasin(object, basin)
 }
 \arguments{
   \item{object}{
-an object to be added to the \code{basin} inherited from one of the following classes: \code{'createReservoir'},\code{'createReach'},\code{'createSubbasin'},\code{'createJunction'}
-}
+an object inherited from one of the following classes: \code{\link[RHMS]{createReservoir}}, \code{\link[RHMS]{createReach}}, \code{\link[RHMS]{createSubbasin}}, \code{\link[RHMS]{createJunction}}
+}  
   \item{basin}{
 an object inherited from class of \code{createBasin}
 }

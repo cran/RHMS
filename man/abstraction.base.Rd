@@ -19,7 +19,7 @@ instantiates an object from class of \code{abstraction}
   }
 }
 \value{
-a list: a list features for the constructed sub-basin
+a list: an object from class of \code{abstraction}
 }
 \seealso{ \code{\link[RHMS]{createSubbasin}} }
 \author{

@@ -4,7 +4,7 @@
 default function for class of \code{baseFlowSeparation}
 }
 \description{
-default function of methods separating baseflow for a given flow discharge
+Methods for separating baseflow for a given flow discharge
 }
 \usage{
 \method{baseFlowSeparation}{default}(discharge,BFSMethod='none'       ,

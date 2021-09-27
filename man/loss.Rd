@@ -4,7 +4,7 @@
 Excess rainfall computation
 }
 \description{
-this function provides parametric methods (e.g. \code{"horton"} and \code{"SCS"}) to compute loss and direct runoff depths
+this function provides methods (e.g. \code{"horton"} and \code{"SCS"}) to compute loss and direct runoff depths
 }
 \usage{
 loss(precipitation,lossMethod,lossParams)

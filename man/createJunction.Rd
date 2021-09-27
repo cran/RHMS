@@ -18,10 +18,10 @@ createJunction(name, downstream,
 (optional) an object from either of classes: \code{createDiversion}, \code{createReservoir}, \code{createSubbasin}, \code{createJunction}, \code{createReach}.
 }
   \item{inflow}{
-(optional): a vector of direct inflow rather than flows comming from upstream (cms)
+(optional): a vector of direct inflow/lateral flow (cms)
 }
   \item{delayInflow}{
-(optional): an integer presenting the time steps to delay direct inflow time series
+(optional): an integer presenting the time steps to delay direct/lateral inflow time series
 }
 }
 \value{

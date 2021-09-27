@@ -4,7 +4,7 @@
 base function for class of \code{baseFlowSeparation}
 }
 \description{
-base function of methods separating baseflow for a given flow discharge.
+Methods of separating baseflow for a given flow discharge.
 }
 \usage{
 \method{baseFlowSeparation}{base}(discharge,BFSMethod,BFSParams,plot)

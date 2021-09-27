@@ -95,9 +95,11 @@ ZaabRB<-addObjectToBasin(Pardanan,ZaabRB)
 ZaabRB<-addObjectToBasin(Zangabad,ZaabRB)
 ZaabRB<-addObjectToBasin(Darbekaykhaneh,ZaabRB)
 
-\dontrun{plot(ZaabRB)}
+\dontrun{
+plot(ZaabRB)
 
 plot(sim(ZaabRB))
+}
 }
 \author{
 Rezgar Arabzadeh
